@@ -35,7 +35,7 @@ pub const MAX_SEQUENCE: u32 = 0xFFFFFFFF;
 /// How many satoshis are in "one fujicoin"
 pub const COIN_VALUE: u64 = 100_000_000;
 /// How many seconds between blocks we expect on average
-pub const TARGET_BLOCK_SPACING: u32 = 600;
+pub const TARGET_BLOCK_SPACING: u32 = 60;
 /// How many blocks between diffchanges
 pub const DIFFCHANGE_INTERVAL: u32 = 2016;
 /// How much time on average should occur between diffchanges
@@ -55,7 +55,7 @@ pub fn max_target(_: Network) -> Uint256 {
 /// since keeping everything below this value should prevent overflows
 /// if you are doing anything remotely sane with monetary values).
 pub fn max_money(_: Network) -> u64 {
-    21_000_000 * COIN_VALUE
+    10_000_000_000 * COIN_VALUE
 }
 
 /// Constructs and returns the coinbase (and only) transaction of the Fujicoin genesis block
@@ -69,9 +69,9 @@ fn fujicoin_genesis_tx() -> Transaction {
     };
 
     // Inputs
-    let in_script = script::Builder::new().push_scriptint(486604799)
-                                          .push_scriptint(4)
-                                          .push_slice(b"The Times 03/Jan/2009 Chancellor on brink of second bailout for banks")
+    let in_script = script::Builder::new().push_scriptint(0)
+                                          .push_scriptint(999)
+                                          .push_slice(b"Mount Fuji is the most beautiful mountain in Japan, altitude is 3776.24m")
                                           .into_script();
     ret.input.push(TxIn {
         previous_output: OutPoint::null(),
@@ -82,11 +82,11 @@ fn fujicoin_genesis_tx() -> Transaction {
 
     // Outputs
     let out_script = script::Builder::new()
-        .push_slice(&Vec::<u8>::from_hex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f").unwrap())
-        .push_opcode(opcodes::all::OP_CHECKSIG)
+        // .push_slice(&Vec::from_hex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f").unwrap())
+        // .push_opcode(opcodes::all::OP_CHECKSIG)
         .into_script();
     ret.output.push(TxOut {
-        value: 50 * COIN_VALUE,
+        value: 1 * COIN_VALUE,
         script_pubkey: out_script
     });
 
@@ -106,9 +106,9 @@ pub fn genesis_block(network: Network) -> Block {
                     version: 1,
                     prev_blockhash: Default::default(),
                     merkle_root,
-                    time: 1231006505,
-                    bits: 0x1d00ffff,
-                    nonce: 2083236893
+                    time: 1403910000,
+                    bits: 0x1e0ffff0,
+                    nonce: 2560786
                 },
                 txdata: txdata
             }
@@ -119,9 +119,9 @@ pub fn genesis_block(network: Network) -> Block {
                     version: 1,
                     prev_blockhash: Default::default(),
                     merkle_root,
-                    time: 1296688602,
-                    bits: 0x1d00ffff,
-                    nonce: 414098458
+                    time: 1402725600,
+                    bits: 0x1e0ffff0,
+                    nonce: 3578955
                 },
                 txdata: txdata
             }
@@ -132,9 +132,9 @@ pub fn genesis_block(network: Network) -> Block {
                     version: 1,
                     prev_blockhash: Default::default(),
                     merkle_root,
-                    time: 1296688602,
-                    bits: 0x207fffff,
-                    nonce: 2
+                    time: 1402725600,
+                    bits: 0x1e0ffff0,
+                    nonce: 3578955
                 },
                 txdata: txdata
             }
