@@ -1,6 +1,6 @@
 #!/bin/sh -ex
 
-FEATURES="fujicoinconsensus use-serde rand"
+FEATURES="bitcoinconsensus use-serde rand"
 
 if [ "$DO_COV" = true ]
 then
