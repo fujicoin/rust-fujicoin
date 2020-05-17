@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //   Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -12,10 +12,10 @@
 // If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 //
 
-//! # Rust Bitcoin Library
+//! # Rust Fujicoin Library
 //!
-//! This is a library for which supports the Bitcoin network protocol and associated
-//! primitives. It is designed for Rust programs built to work with the Bitcoin
+//! This is a library for which supports the Fujicoin network protocol and associated
+//! primitives. It is designed for Rust programs built to work with the Fujicoin
 //! network.
 //!
 //! It is also written entirely in Rust to illustrate the benefits of strong type
@@ -23,7 +23,7 @@
 //! software.
 //!
 
-#![crate_name = "bitcoin"]
+#![crate_name = "fujicoin"]
 #![crate_type = "dylib"]
 #![crate_type = "rlib"]
 
@@ -52,7 +52,7 @@
 #![allow(ellipsis_inclusive_range_patterns)]
 
 // Re-exported dependencies.
-#[macro_use] pub extern crate bitcoin_hashes as hashes;
+#[macro_use] pub extern crate fujicoin_hashes as hashes;
 pub extern crate secp256k1;
 pub extern crate bech32;
 
@@ -62,10 +62,10 @@ pub extern crate bech32;
 #[cfg(all(test, feature = "serde"))] extern crate serde_json;
 #[cfg(all(test, feature = "serde"))] extern crate serde_test;
 #[cfg(all(test, feature = "unstable"))] extern crate test;
-#[cfg(feature="bitcoinconsensus")] extern crate bitcoinconsensus;
+#[cfg(feature="fujicoinconsensus")] extern crate fujicoinconsensus;
 
 #[cfg(target_pointer_width = "16")]
-compile_error!("rust-bitcoin cannot be used on 16-bit architectures");
+compile_error!("rust-fujicoin cannot be used on 16-bit architectures");
 
 #[cfg(test)]
 #[macro_use]
@@ -97,7 +97,7 @@ pub use util::address::Address;
 pub use util::address::AddressType;
 pub use util::amount::Amount;
 pub use util::amount::SignedAmount;
-pub use util::hash::BitcoinHash;
+pub use util::hash::FujicoinHash;
 pub use util::key::PrivateKey;
 pub use util::key::PublicKey;
 pub use util::merkleblock::MerkleBlock;

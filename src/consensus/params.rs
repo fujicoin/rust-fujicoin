@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //   Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -21,7 +21,7 @@ use network::constants::Network;
 use util::uint::Uint256;
 
 /// Lowest possible difficulty for Mainnet.
-const MAX_BITS_BITCOIN: Uint256 = Uint256([
+const MAX_BITS_FUJICOIN: Uint256 = Uint256([
     0xffffffffffffffffu64,
     0xffffffffffffffffu64,
     0xffffffffffffffffu64,
@@ -77,15 +77,15 @@ impl Params {
     /// Creates parameters set for the given network.
     pub fn new(network: Network) -> Self {
         match network {
-            Network::Bitcoin => Params {
-                network: Network::Bitcoin,
+            Network::Fujicoin => Params {
+                network: Network::Fujicoin,
                 bip16_time: 1333238400,                 // Apr 1 2012
                 bip34_height: 227931, // 000000000000024b89b42a942fe0d9fea3bb44ab7bd1b19115dd6a759c0808b8
                 bip65_height: 388381, // 000000000000000004c2b624ed5d7756c508d90fd0da2c7c679febfa6c4735f0
                 bip66_height: 363725, // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
                 rule_change_activation_threshold: 1916, // 95%
                 miner_confirmation_window: 2016,
-                pow_limit: MAX_BITS_BITCOIN,
+                pow_limit: MAX_BITS_FUJICOIN,
                 pow_target_spacing: 10 * 60,            // 10 minutes.
                 pow_target_timespan: 14 * 24 * 60 * 60, // 2 weeks.
                 allow_min_difficulty_blocks: false,

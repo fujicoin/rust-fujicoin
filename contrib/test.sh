@@ -1,6 +1,6 @@
 #!/bin/sh -ex
 
-FEATURES="bitcoinconsensus use-serde rand"
+FEATURES="fujicoinconsensus use-serde rand"
 
 if [ "$DO_COV" = true ]
 then
@@ -44,6 +44,6 @@ if [ -n "$AS_DEPENDENCY" ]
 then
     cargo new dep_test
     cd dep_test
-    echo 'bitcoin = { path = "..", features = ["use-serde"] }' >> Cargo.toml
+    echo 'fujicoin = { path = "..", features = ["use-serde"] }' >> Cargo.toml
     cargo test --verbose
 fi

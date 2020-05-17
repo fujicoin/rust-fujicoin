@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -20,7 +20,7 @@ use hashes::{sha256d, Hash};
 use blockdata::opcodes;
 use consensus::encode;
 
-static MSG_SIGN_PREFIX: &'static [u8] = b"\x18Bitcoin Signed Message:\n";
+static MSG_SIGN_PREFIX: &'static [u8] = b"\x18Fujicoin Signed Message:\n";
 
 /// Search for `needle` in the vector `haystack` and remove every
 /// instance of it, returning the number of instances removed.
@@ -57,7 +57,7 @@ pub fn script_find_and_remove(haystack: &mut Vec<u8>, needle: &[u8]) -> usize {
     n_deleted
 }
 
-/// Hash message for signature using Bitcoin's message signing format
+/// Hash message for signature using Fujicoin's message signing format
 pub fn signed_msg_hash(msg: &str) -> sha256d::Hash {
     sha256d::Hash::hash(
         &[

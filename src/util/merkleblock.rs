@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written by
 //   John L. Jegutanis
 //
@@ -14,7 +14,7 @@
 //
 // This code was translated from merkleblock.h, merkleblock.cpp and pmt_tests.cpp
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2018 The Bitcoin Core developers
+// Copyright (c) 2009-2018 The Fujicoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,20 +25,20 @@
 //! # Examples
 //!
 //! ```rust
-//! extern crate bitcoin;
-//! use bitcoin::hash_types::Txid;
-//! use bitcoin::hashes::hex::FromHex;
-//! use bitcoin::{Block, MerkleBlock};
+//! extern crate fujicoin;
+//! use fujicoin::hash_types::Txid;
+//! use fujicoin::hashes::hex::FromHex;
+//! use fujicoin::{Block, MerkleBlock};
 //!
 //! # fn main() {
-//! // Get the proof from a bitcoind by running in the terminal:
+//! // Get the proof from a fujicoind by running in the terminal:
 //! // $ TXID="5a4ebf66822b0b2d56bd9dc64ece0bc38ee7844a23ff1d7320a88c5fdb2ad3e2"
-//! // $ bitcoin-cli gettxoutproof [\"$TXID\"]
+//! // $ fujicoin-cli gettxoutproof [\"$TXID\"]
 //! let mb_bytes = Vec::from_hex("01000000ba8b9cda965dd8e536670f9ddec10e53aab14b20bacad27b913719\
 //!     0000000000190760b278fe7b8565fda3b968b918d5fd997f993b23674c0af3b6fde300b38f33a5914ce6ed5b\
 //!     1b01e32f570200000002252bf9d75c4f481ebb6278d708257d1f12beb6dd30301d26c623f789b2ba6fc0e2d3\
 //!     2adb5f8ca820731dff234a84e78ec30bce4ec69dbd562d0b2b8266bf4e5a0105").unwrap();
-//! let mb: MerkleBlock = bitcoin::consensus::deserialize(&mb_bytes).unwrap();
+//! let mb: MerkleBlock = fujicoin::consensus::deserialize(&mb_bytes).unwrap();
 //!
 //! // Authenticate and extract matched transaction ids
 //! let mut matches: Vec<Txid> = vec![];
@@ -133,10 +133,10 @@ impl PartialMerkleTree {
     /// # Examples
     ///
     /// ```rust
-    /// extern crate bitcoin;
-    /// use bitcoin::hash_types::Txid;
-    /// use bitcoin::hashes::hex::FromHex;
-    /// use bitcoin::util::merkleblock::PartialMerkleTree;
+    /// extern crate fujicoin;
+    /// use fujicoin::hash_types::Txid;
+    /// use fujicoin::hashes::hex::FromHex;
+    /// use fujicoin::util::merkleblock::PartialMerkleTree;
     ///
     /// # fn main() {
     /// // Block 80000
@@ -407,10 +407,10 @@ impl MerkleBlock {
     /// # Examples
     ///
     /// ```rust
-    /// extern crate bitcoin;
-    /// use bitcoin::hash_types::Txid;
-    /// use bitcoin::hashes::hex::FromHex;
-    /// use bitcoin::{Block, MerkleBlock};
+    /// extern crate fujicoin;
+    /// use fujicoin::hash_types::Txid;
+    /// use fujicoin::hashes::hex::FromHex;
+    /// use fujicoin::{Block, MerkleBlock};
     ///
     /// # fn main() {
     /// // Block 80000
@@ -424,7 +424,7 @@ impl MerkleBlock {
     ///     d3ee3738d9e1446618c4571d1090db022100e2ac980643b0b82c0e88ffdfec6b64e3e6ba35e7ba5fdd7d\
     ///     5d6cc8d25c6b241501ffffffff0100f2052a010000001976a914404371705fa9bd789a2fcd52d2c580b6\
     ///     5d35549d88ac00000000").unwrap();
-    /// let block: Block = bitcoin::consensus::deserialize(&block_bytes).unwrap();
+    /// let block: Block = fujicoin::consensus::deserialize(&block_bytes).unwrap();
     ///
     /// // Create a merkle block containing a single transaction
     /// let txid = Txid::from_hex(
@@ -502,7 +502,7 @@ mod tests {
     use secp256k1::rand::prelude::*;
 
     use consensus::encode::{deserialize, serialize};
-    use util::hash::{bitcoin_merkle_root, BitcoinHash};
+    use util::hash::{fujicoin_merkle_root, FujicoinHash};
     use util::merkleblock::{MerkleBlock, PartialMerkleTree};
     use {hex, Block};
 
@@ -519,7 +519,7 @@ mod tests {
 
             // Calculate the merkle root and height
             let hashes = txids.iter().map(|t| t.as_hash());
-            let merkle_root_1: TxMerkleNode = bitcoin_merkle_root(hashes).into();
+            let merkle_root_1: TxMerkleNode = fujicoin_merkle_root(hashes).into();
             let mut height = 1;
             let mut ntx = num_tx;
             while ntx > 1 {
@@ -616,7 +616,7 @@ mod tests {
             af156d6fc30b55fad4112df2b95531e68114e9ad10011e72f7b7cfdb025700";
 
         let mb: MerkleBlock = deserialize(&hex::decode(mb_hex).unwrap()).unwrap();
-        assert_eq!(get_block_13b8a().bitcoin_hash(), mb.header.bitcoin_hash());
+        assert_eq!(get_block_13b8a().fujicoin_hash(), mb.header.fujicoin_hash());
         assert_eq!(
             mb.header.merkle_root,
             mb.txn.extract_matches(&mut vec![], &mut vec![]).unwrap()
@@ -645,7 +645,7 @@ mod tests {
 
         let merkle_block = MerkleBlock::from_block(&block, &txids);
 
-        assert_eq!(merkle_block.header.bitcoin_hash(), block.bitcoin_hash());
+        assert_eq!(merkle_block.header.fujicoin_hash(), block.fujicoin_hash());
 
         let mut matches: Vec<Txid> = vec![];
         let mut index: Vec<u32> = vec![];
@@ -678,7 +678,7 @@ mod tests {
 
         let merkle_block = MerkleBlock::from_block(&block, &txids);
 
-        assert_eq!(merkle_block.header.bitcoin_hash(), block.bitcoin_hash());
+        assert_eq!(merkle_block.header.fujicoin_hash(), block.fujicoin_hash());
 
         let mut matches: Vec<Txid> = vec![];
         let mut index: Vec<u32> = vec![];

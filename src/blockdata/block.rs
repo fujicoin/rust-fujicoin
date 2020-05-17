@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -12,7 +12,7 @@
 // If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 //
 
-//! Bitcoin Block
+//! Fujicoin Block
 //!
 //! A block is a bundle of transactions with a proof-of-work attached,
 //! which commits to an earlier block to form the blockchain. This
@@ -22,7 +22,7 @@
 
 use util;
 use util::Error::{BlockBadTarget, BlockBadProofOfWork};
-use util::hash::{BitcoinHash, bitcoin_merkle_root};
+use util::hash::{FujicoinHash, fujicoin_merkle_root};
 use hashes::{Hash, HashEngine};
 use hash_types::{Wtxid, BlockHash, TxMerkleNode, WitnessMerkleNode, WitnessCommitment};
 use util::uint::Uint256;
@@ -50,7 +50,7 @@ pub struct BlockHeader {
     pub nonce: u32,
 }
 
-/// A Bitcoin block, which is a collection of transactions with an attached
+/// A Fujicoin block, which is a collection of transactions with an attached
 /// proof of work.
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct Block {
@@ -96,7 +96,7 @@ impl Block {
     /// Calculate the transaction merkle root.
     pub fn merkle_root(&self) -> TxMerkleNode {
         let hashes = self.txdata.iter().map(|obj| obj.txid().as_hash());
-        bitcoin_merkle_root(hashes).into()
+        fujicoin_merkle_root(hashes).into()
     }
 
     /// compute witness commitment for the transaction list
@@ -117,7 +117,7 @@ impl Block {
                 t.wtxid().as_hash()
             }
         );
-        bitcoin_merkle_root(hashes).into()
+        fujicoin_merkle_root(hashes).into()
     }
 }
 
@@ -174,7 +174,7 @@ impl BlockHeader {
         if target != required_target {
             return Err(BlockBadTarget);
         }
-        let data: [u8; 32] = self.bitcoin_hash().into_inner();
+        let data: [u8; 32] = self.fujicoin_hash().into_inner();
         let mut ret = [0u64; 4];
         util::endian::bytes_to_u64_slice_le(&data, &mut ret);
         let hash = &Uint256(ret);
@@ -183,7 +183,7 @@ impl BlockHeader {
 
     /// Returns the total work of the block
     pub fn work(&self) -> Uint256 {
-        // 2**256 / (target + 1) == ~target / (target+1) + 1    (eqn shamelessly stolen from bitcoind)
+        // 2**256 / (target + 1) == ~target / (target+1) + 1    (eqn shamelessly stolen from fujicoind)
         let mut ret = !self.target();
         let mut ret1 = self.target();
         ret1.increment();
@@ -193,16 +193,16 @@ impl BlockHeader {
     }
 }
 
-impl BitcoinHash<BlockHash> for BlockHeader {
-    fn bitcoin_hash(&self) -> BlockHash {
+impl FujicoinHash<BlockHash> for BlockHeader {
+    fn fujicoin_hash(&self) -> BlockHash {
         use consensus::encode::serialize;
         BlockHash::hash(&serialize(self))
     }
 }
 
-impl BitcoinHash<BlockHash> for Block {
-    fn bitcoin_hash(&self) -> BlockHash {
-        self.header.bitcoin_hash()
+impl FujicoinHash<BlockHash> for Block {
+    fn fujicoin_hash(&self) -> BlockHash {
+        self.header.fujicoin_hash()
     }
 }
 

@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 // To the extent possible under law, the author(s) have dedicated all
@@ -24,8 +24,8 @@ use consensus::encode::Encodable;
 /// Calculates the merkle root of a list of hashes inline
 /// into the allocated slice.
 ///
-/// In most cases, you'll want to use [bitcoin_merkle_root] instead.
-pub fn bitcoin_merkle_root_inline<T>(data: &mut [T]) -> T
+/// In most cases, you'll want to use [fujicoin_merkle_root] instead.
+pub fn fujicoin_merkle_root_inline<T>(data: &mut [T]) -> T
     where T: Hash + Encodable,
           <T as Hash>::Engine: io::Write,
 {
@@ -46,11 +46,11 @@ pub fn bitcoin_merkle_root_inline<T>(data: &mut [T]) -> T
         data[idx] = T::from_engine(encoder);
     }
     let half_len = data.len() / 2 + data.len() % 2;
-    bitcoin_merkle_root_inline(&mut data[0..half_len])
+    fujicoin_merkle_root_inline(&mut data[0..half_len])
 }
 
 /// Calculates the merkle root of an iterator of hashes.
-pub fn bitcoin_merkle_root<T, I>(mut iter: I) -> T
+pub fn fujicoin_merkle_root<T, I>(mut iter: I) -> T
     where T: Hash + Encodable,
           <T as Hash>::Engine: io::Write,
           I: ExactSizeIterator<Item = T>,
@@ -73,11 +73,11 @@ pub fn bitcoin_merkle_root<T, I>(mut iter: I) -> T
         hash2.consensus_encode(&mut encoder).unwrap();
         alloc.push(T::from_engine(encoder));
     }
-    bitcoin_merkle_root_inline(&mut alloc)
+    fujicoin_merkle_root_inline(&mut alloc)
 }
 
 /// Objects which are referred to by hash
-pub trait BitcoinHash<T: Hash> {
+pub trait FujicoinHash<T: Hash> {
     /// Produces a Sha256dHash which can be used to refer to the object
-    fn bitcoin_hash(&self) -> T;
+    fn fujicoin_hash(&self) -> T;
 }

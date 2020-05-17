@@ -23,12 +23,12 @@ use std::str::FromStr;
 /// A set of denominations in which amounts can be expressed.
 #[derive(Debug, Clone, Copy, Eq, PartialEq, Hash)]
 pub enum Denomination {
-    /// BTC
-    Bitcoin,
-    /// mBTC
-    MilliBitcoin,
-    /// uBTC
-    MicroBitcoin,
+    /// FJC
+    Fujicoin,
+    /// mFJC
+    MilliFujicoin,
+    /// uFJC
+    MicroFujicoin,
     /// bits
     Bit,
     /// satoshi
@@ -41,9 +41,9 @@ impl Denomination {
     /// The number of decimal places more than a satoshi.
     fn precision(self) -> i32 {
         match self {
-            Denomination::Bitcoin => -8,
-            Denomination::MilliBitcoin => -5,
-            Denomination::MicroBitcoin => -2,
+            Denomination::Fujicoin => -8,
+            Denomination::MilliFujicoin => -5,
+            Denomination::MicroFujicoin => -2,
             Denomination::Bit => -2,
             Denomination::Satoshi => 0,
             Denomination::MilliSatoshi => 3,
@@ -54,9 +54,9 @@ impl Denomination {
 impl fmt::Display for Denomination {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.write_str(match *self {
-            Denomination::Bitcoin => "BTC",
-            Denomination::MilliBitcoin => "mBTC",
-            Denomination::MicroBitcoin => "uBTC",
+            Denomination::Fujicoin => "FJC",
+            Denomination::MilliFujicoin => "mFJC",
+            Denomination::MicroFujicoin => "uFJC",
             Denomination::Bit => "bits",
             Denomination::Satoshi => "satoshi",
             Denomination::MilliSatoshi => "msat",
@@ -69,9 +69,9 @@ impl FromStr for Denomination {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "BTC" => Ok(Denomination::Bitcoin),
-            "mBTC" => Ok(Denomination::MilliBitcoin),
-            "uBTC" => Ok(Denomination::MicroBitcoin),
+            "FJC" => Ok(Denomination::Fujicoin),
+            "mFJC" => Ok(Denomination::MilliFujicoin),
+            "uFJC" => Ok(Denomination::MicroFujicoin),
             "bits" => Ok(Denomination::Bit),
             "satoshi" => Ok(Denomination::Satoshi),
             "sat" => Ok(Denomination::Satoshi),
@@ -256,7 +256,7 @@ fn fmt_satoshi_in(
 
 /// Amount
 ///
-/// The [Amount] type can be used to express Bitcoin amounts that supports
+/// The [Amount] type can be used to express Fujicoin amounts that supports
 /// arithmetic and conversion to various denominations.
 ///
 ///
@@ -279,8 +279,8 @@ impl Amount {
     pub const ZERO: Amount = Amount(0);
     /// Exactly one satoshi.
     pub const ONE_SAT: Amount = Amount(1);
-    /// Exactly one bitcoin.
-    pub const ONE_BTC: Amount = Amount(100_000_000);
+    /// Exactly one fujicoin.
+    pub const ONE_FJC: Amount = Amount(100_000_000);
 
     /// Create an [Amount] with satoshi precision and the given number of satoshis.
     pub fn from_sat(satoshi: u64) -> Amount {
@@ -302,9 +302,9 @@ impl Amount {
         Amount(u64::min_value())
     }
 
-    /// Convert from a value expressing bitcoins to an [Amount].
+    /// Convert from a value expressing fujicoins to an [Amount].
     pub fn from_btc(btc: f64) -> Result<Amount, ParseAmountError> {
-        Amount::from_float_in(btc, Denomination::Bitcoin)
+        Amount::from_float_in(btc, Denomination::Fujicoin)
     }
 
     /// Parse a decimal string as a value in the given denomination.
@@ -344,13 +344,13 @@ impl Amount {
         f64::from_str(&self.to_string_in(denom)).unwrap()
     }
 
-    /// Express this [Amount] as a floating-point value in Bitcoin.
+    /// Express this [Amount] as a floating-point value in Fujicoin.
     ///
-    /// Equivalent to `to_float_in(Denomination::Bitcoin)`.
+    /// Equivalent to `to_float_in(Denomination::Fujicoin)`.
     ///
     /// Please be aware of the risk of using floating-point numbers.
     pub fn as_btc(&self) -> f64 {
-        self.to_float_in(Denomination::Bitcoin)
+        self.to_float_in(Denomination::Fujicoin)
     }
 
     /// Convert this [Amount] in floating-point notation with a given
@@ -468,11 +468,11 @@ impl fmt::Debug for Amount {
 }
 
 // No one should depend on a binding contract for Display for this type.
-// Just using Bitcoin denominated string.
+// Just using Fujicoin denominated string.
 impl fmt::Display for Amount {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        self.fmt_value_in(f, Denomination::Bitcoin)?;
-        write!(f, " {}", Denomination::Bitcoin)
+        self.fmt_value_in(f, Denomination::Fujicoin)?;
+        write!(f, " {}", Denomination::Fujicoin)
     }
 }
 
@@ -556,7 +556,7 @@ impl FromStr for Amount {
 
 /// SignedAmount
 ///
-/// The [SignedAmount] type can be used to express Bitcoin amounts that supports
+/// The [SignedAmount] type can be used to express Fujicoin amounts that supports
 /// arithmetic and conversion to various denominations.
 ///
 ///
@@ -576,8 +576,8 @@ impl SignedAmount {
     pub const ZERO: SignedAmount = SignedAmount(0);
     /// Exactly one satoshi.
     pub const ONE_SAT: SignedAmount = SignedAmount(1);
-    /// Exactly one bitcoin.
-    pub const ONE_BTC: SignedAmount = SignedAmount(100_000_000);
+    /// Exactly one fujicoin.
+    pub const ONE_FJC: SignedAmount = SignedAmount(100_000_000);
 
     /// Create an [SignedAmount] with satoshi precision and the given number of satoshis.
     pub fn from_sat(satoshi: i64) -> SignedAmount {
@@ -599,9 +599,9 @@ impl SignedAmount {
         SignedAmount(i64::min_value())
     }
 
-    /// Convert from a value expressing bitcoins to an [SignedAmount].
+    /// Convert from a value expressing fujicoins to an [SignedAmount].
     pub fn from_btc(btc: f64) -> Result<SignedAmount, ParseAmountError> {
-        SignedAmount::from_float_in(btc, Denomination::Bitcoin)
+        SignedAmount::from_float_in(btc, Denomination::Fujicoin)
     }
 
     /// Parse a decimal string as a value in the given denomination.
@@ -641,13 +641,13 @@ impl SignedAmount {
         f64::from_str(&self.to_string_in(denom)).unwrap()
     }
 
-    /// Express this [SignedAmount] as a floating-point value in Bitcoin.
+    /// Express this [SignedAmount] as a floating-point value in Fujicoin.
     ///
-    /// Equivalent to `to_float_in(Denomination::Bitcoin)`.
+    /// Equivalent to `to_float_in(Denomination::Fujicoin)`.
     ///
     /// Please be aware of the risk of using floating-point numbers.
     pub fn as_btc(&self) -> f64 {
-        self.to_float_in(Denomination::Bitcoin)
+        self.to_float_in(Denomination::Fujicoin)
     }
 
     /// Convert this [SignedAmount] in floating-point notation with a given
@@ -801,11 +801,11 @@ impl fmt::Debug for SignedAmount {
 }
 
 // No one should depend on a binding contract for Display for this type.
-// Just using Bitcoin denominated string.
+// Just using Fujicoin denominated string.
 impl fmt::Display for SignedAmount {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        self.fmt_value_in(f, Denomination::Bitcoin)?;
-        write!(f, " {}", Denomination::Bitcoin)
+        self.fmt_value_in(f, Denomination::Fujicoin)?;
+        write!(f, " {}", Denomination::Fujicoin)
     }
 }
 
@@ -899,11 +899,11 @@ pub mod serde {
     //!
     //! ```rust,ignore
     //! use serde::{Serialize, Deserialize};
-    //! use bitcoin::Amount;
+    //! use fujicoin::Amount;
     //!
     //! #[derive(Serialize, Deserialize)]
     //! pub struct HasAmount {
-    //!     #[serde(with = "bitcoin::util::amount::serde::as_btc")]
+    //!     #[serde(with = "fujicoin::util::amount::serde::as_btc")]
     //!     pub amount: Amount,
     //! }
     //! ```
@@ -928,7 +928,7 @@ pub mod serde {
             Ok(Amount::from_sat(u64::deserialize(d)?))
         }
         fn ser_btc<S: Serializer>(self, s: S) -> Result<S::Ok, S::Error> {
-            f64::serialize(&self.to_float_in(Denomination::Bitcoin), s)
+            f64::serialize(&self.to_float_in(Denomination::Fujicoin), s)
         }
         fn des_btc<'d, D: Deserializer<'d>>(d: D) -> Result<Self, D::Error> {
             use serde::de::Error;
@@ -944,7 +944,7 @@ pub mod serde {
             Ok(SignedAmount::from_sat(i64::deserialize(d)?))
         }
         fn ser_btc<S: Serializer>(self, s: S) -> Result<S::Ok, S::Error> {
-            f64::serialize(&self.to_float_in(Denomination::Bitcoin), s)
+            f64::serialize(&self.to_float_in(Denomination::Fujicoin), s)
         }
         fn des_btc<'d, D: Deserializer<'d>>(d: D) -> Result<Self, D::Error> {
             use serde::de::Error;
@@ -993,7 +993,7 @@ pub mod serde {
     }
 
     pub mod as_btc {
-        //! Serialize and deserialize [Amount] as JSON numbers denominated in BTC.
+        //! Serialize and deserialize [Amount] as JSON numbers denominated in FJC.
         //! Use with `#[serde(with = "amount::serde::as_btc")]`.
 
         use serde::{Deserializer, Serializer};
@@ -1008,7 +1008,7 @@ pub mod serde {
         }
 
         pub mod opt {
-            //! Serialize and deserialize [Option<Amount>] as JSON numbers denominated in BTC.
+            //! Serialize and deserialize [Option<Amount>] as JSON numbers denominated in FJC.
             //! Use with `#[serde(default, with = "amount::serde::as_btc::opt")]`.
 
             use serde::{Deserializer, Serializer};
@@ -1110,19 +1110,19 @@ mod tests {
         let sat = Amount::from_sat;
         let ssat = SignedAmount::from_sat;
 
-        assert_eq!(f(11.22, D::Bitcoin), Ok(sat(1122000000)));
-        assert_eq!(sf(-11.22, D::MilliBitcoin), Ok(ssat(-1122000)));
+        assert_eq!(f(11.22, D::Fujicoin), Ok(sat(1122000000)));
+        assert_eq!(sf(-11.22, D::MilliFujicoin), Ok(ssat(-1122000)));
         assert_eq!(f(11.22, D::Bit), Ok(sat(1122)));
         assert_eq!(sf(-1000.0, D::MilliSatoshi), Ok(ssat(-1)));
-        assert_eq!(f(0.0001234, D::Bitcoin), Ok(sat(12340)));
-        assert_eq!(sf(-0.00012345, D::Bitcoin), Ok(ssat(-12345)));
+        assert_eq!(f(0.0001234, D::Fujicoin), Ok(sat(12340)));
+        assert_eq!(sf(-0.00012345, D::Fujicoin), Ok(ssat(-12345)));
 
         assert_eq!(f(-100.0, D::MilliSatoshi), Err(ParseAmountError::Negative));
         assert_eq!(f(11.22, D::Satoshi), Err(ParseAmountError::TooPrecise));
         assert_eq!(sf(-100.0, D::MilliSatoshi), Err(ParseAmountError::TooPrecise));
         assert_eq!(sf(-100.0, D::MilliSatoshi), Err(ParseAmountError::TooPrecise));
-        assert_eq!(f(42.123456781, D::Bitcoin), Err(ParseAmountError::TooPrecise));
-        assert_eq!(sf(-184467440738.0, D::Bitcoin), Err(ParseAmountError::TooBig));
+        assert_eq!(f(42.123456781, D::Fujicoin), Err(ParseAmountError::TooPrecise));
+        assert_eq!(sf(-184467440738.0, D::Fujicoin), Err(ParseAmountError::TooBig));
         assert_eq!(f(18446744073709551617.0, D::Satoshi), Err(ParseAmountError::TooBig));
         assert_eq!(
             f(SignedAmount::max_value().to_float_in(D::Satoshi) + 1.0, D::Satoshi),
@@ -1134,19 +1134,19 @@ mod tests {
         );
 
         let btc = move |f| SignedAmount::from_btc(f).unwrap();
-        assert_eq!(btc(2.5).to_float_in(D::Bitcoin), 2.5);
-        assert_eq!(btc(-2.5).to_float_in(D::MilliBitcoin), -2500.0);
+        assert_eq!(btc(2.5).to_float_in(D::Fujicoin), 2.5);
+        assert_eq!(btc(-2.5).to_float_in(D::MilliFujicoin), -2500.0);
         assert_eq!(btc(2.5).to_float_in(D::Satoshi), 250000000.0);
         assert_eq!(btc(-2.5).to_float_in(D::MilliSatoshi), -250000000000.0);
 
         let btc = move |f| Amount::from_btc(f).unwrap();
-        assert_eq!(&btc(0.0012).to_float_in(D::Bitcoin).to_string(), "0.0012")
+        assert_eq!(&btc(0.0012).to_float_in(D::Fujicoin).to_string(), "0.0012")
     }
 
     #[test]
     fn parsing() {
         use super::ParseAmountError as E;
-        let btc = Denomination::Bitcoin;
+        let btc = Denomination::Fujicoin;
         let p = Amount::from_str_in;
         let sp = SignedAmount::from_str_in;
 
@@ -1174,21 +1174,21 @@ mod tests {
     fn to_string() {
         use super::Denomination as D;
 
-        assert_eq!(Amount::ONE_BTC.to_string_in(D::Bitcoin), "1.00000000");
-        assert_eq!(Amount::ONE_BTC.to_string_in(D::Satoshi), "100000000");
-        assert_eq!(Amount::ONE_SAT.to_string_in(D::Bitcoin), "0.00000001");
-        assert_eq!(SignedAmount::from_sat(-42).to_string_in(D::Bitcoin), "-0.00000042");
+        assert_eq!(Amount::ONE_FJC.to_string_in(D::Fujicoin), "1.00000000");
+        assert_eq!(Amount::ONE_FJC.to_string_in(D::Satoshi), "100000000");
+        assert_eq!(Amount::ONE_SAT.to_string_in(D::Fujicoin), "0.00000001");
+        assert_eq!(SignedAmount::from_sat(-42).to_string_in(D::Fujicoin), "-0.00000042");
 
-        assert_eq!(Amount::ONE_BTC.to_string_with_denomination(D::Bitcoin), "1.00000000 BTC");
+        assert_eq!(Amount::ONE_FJC.to_string_with_denomination(D::Fujicoin), "1.00000000 FJC");
         assert_eq!(Amount::ONE_SAT.to_string_with_denomination(D::MilliSatoshi), "1000 msat");
         assert_eq!(
-            SignedAmount::ONE_BTC.to_string_with_denomination(D::Satoshi),
+            SignedAmount::ONE_FJC.to_string_with_denomination(D::Satoshi),
             "100000000 satoshi"
         );
-        assert_eq!(Amount::ONE_SAT.to_string_with_denomination(D::Bitcoin), "0.00000001 BTC");
+        assert_eq!(Amount::ONE_SAT.to_string_with_denomination(D::Fujicoin), "0.00000001 FJC");
         assert_eq!(
-            SignedAmount::from_sat(-42).to_string_with_denomination(D::Bitcoin),
-            "-0.00000042 BTC"
+            SignedAmount::from_sat(-42).to_string_with_denomination(D::Fujicoin),
+            "-0.00000042 FJC"
         );
     }
 
@@ -1198,19 +1198,19 @@ mod tests {
         let p = Amount::from_str;
         let sp = SignedAmount::from_str;
 
-        assert_eq!(p("x BTC"), Err(E::InvalidCharacter('x')));
-        assert_eq!(p("5 BTC BTC"), Err(E::InvalidFormat));
-        assert_eq!(p("5 5 BTC"), Err(E::InvalidFormat));
+        assert_eq!(p("x FJC"), Err(E::InvalidCharacter('x')));
+        assert_eq!(p("5 FJC FJC"), Err(E::InvalidFormat));
+        assert_eq!(p("5 5 FJC"), Err(E::InvalidFormat));
 
         assert_eq!(p("5 BCH"), Err(E::UnknownDenomination("BCH".to_owned())));
 
-        assert_eq!(p("-1 BTC"), Err(E::Negative));
-        assert_eq!(p("-0.0 BTC"), Err(E::Negative));
-        assert_eq!(p("0.123456789 BTC"), Err(E::TooPrecise));
+        assert_eq!(p("-1 FJC"), Err(E::Negative));
+        assert_eq!(p("-0.0 FJC"), Err(E::Negative));
+        assert_eq!(p("0.123456789 FJC"), Err(E::TooPrecise));
         assert_eq!(sp("-0.1 satoshi"), Err(E::TooPrecise));
-        assert_eq!(p("0.123456 mBTC"), Err(E::TooPrecise));
+        assert_eq!(p("0.123456 mFJC"), Err(E::TooPrecise));
         assert_eq!(sp("-1.001 bits"), Err(E::TooPrecise));
-        assert_eq!(sp("-200000000000 BTC"), Err(E::TooBig));
+        assert_eq!(sp("-200000000000 FJC"), Err(E::TooBig));
         assert_eq!(p("18446744073709551616 sat"), Err(E::TooBig));
 
         assert_eq!(sp("0 msat"), Err(E::TooPrecise));
@@ -1224,9 +1224,9 @@ mod tests {
 
         assert_eq!(p(".5 bits"), Ok(Amount::from_sat(50)));
         assert_eq!(sp("-.5 bits"), Ok(SignedAmount::from_sat(-50)));
-        assert_eq!(p("0.00253583 BTC"), Ok(Amount::from_sat(253583)));
+        assert_eq!(p("0.00253583 FJC"), Ok(Amount::from_sat(253583)));
         assert_eq!(sp("-5 satoshi"), Ok(SignedAmount::from_sat(-5)));
-        assert_eq!(p("0.10000000 BTC"), Ok(Amount::from_sat(100_000_00)));
+        assert_eq!(p("0.10000000 FJC"), Ok(Amount::from_sat(100_000_00)));
         assert_eq!(sp("-100 bits"), Ok(SignedAmount::from_sat(-10_000)));
     }
 
@@ -1236,9 +1236,9 @@ mod tests {
 
         let amt = Amount::from_sat(42);
         let denom = Amount::to_string_with_denomination;
-        assert_eq!(Amount::from_str(&denom(&amt, D::Bitcoin)), Ok(amt));
-        assert_eq!(Amount::from_str(&denom(&amt, D::MilliBitcoin)), Ok(amt));
-        assert_eq!(Amount::from_str(&denom(&amt, D::MicroBitcoin)), Ok(amt));
+        assert_eq!(Amount::from_str(&denom(&amt, D::Fujicoin)), Ok(amt));
+        assert_eq!(Amount::from_str(&denom(&amt, D::MilliFujicoin)), Ok(amt));
+        assert_eq!(Amount::from_str(&denom(&amt, D::MicroFujicoin)), Ok(amt));
         assert_eq!(Amount::from_str(&denom(&amt, D::Bit)), Ok(amt));
         assert_eq!(Amount::from_str(&denom(&amt, D::Satoshi)), Ok(amt));
         assert_eq!(Amount::from_str(&denom(&amt, D::MilliSatoshi)), Ok(amt));
