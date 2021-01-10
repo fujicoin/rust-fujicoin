@@ -380,8 +380,8 @@ impl Display for Address {
             Payload::PubkeyHash(ref hash) => {
                 let mut prefixed = [0; 21];
                 prefixed[0] = match self.network {
-                    Network::Fujicoin => 0,
-                    Network::Testnet | Network::Regtest => 111,
+                    Network::Fujicoin => 36,
+                    Network::Testnet | Network::Regtest => 74,
                 };
                 prefixed[1..].copy_from_slice(&hash[..]);
                 base58::check_encode_slice_to_fmt(fmt, &prefixed[..])
@@ -389,7 +389,7 @@ impl Display for Address {
             Payload::ScriptHash(ref hash) => {
                 let mut prefixed = [0; 21];
                 prefixed[0] = match self.network {
-                    Network::Fujicoin => 5,
+                    Network::Fujicoin => 16,
                     Network::Testnet | Network::Regtest => 196,
                 };
                 prefixed[1..].copy_from_slice(&hash[..]);
@@ -400,9 +400,9 @@ impl Display for Address {
                 program: ref prog,
             } => {
                 let hrp = match self.network {
-                    Network::Fujicoin => "bc",
-                    Network::Testnet => "tb",
-                    Network::Regtest => "bcrt",
+                    Network::Fujicoin => "fc",
+                    Network::Testnet => "tf",
+                    Network::Regtest => "fcrt",
                 };
                 let mut bech32_writer = bech32::Bech32Writer::new(hrp, fmt)?;
                 bech32::WriteBase32::write_u5(&mut bech32_writer, ver)?;
@@ -429,9 +429,9 @@ impl FromStr for Address {
         // try bech32
         let bech32_network = match find_bech32_prefix(s) {
             // note that upper or lowercase is allowed but NOT mixed case
-            "bc" | "BC" => Some(Network::Fujicoin),
-            "tb" | "TB" => Some(Network::Testnet),
-            "bcrt" | "BCRT" => Some(Network::Regtest),
+            "fc" | "FC" => Some(Network::Fujicoin),
+            "tf" | "TF" => Some(Network::Testnet),
+            "fcrt" | "FCRT" => Some(Network::Regtest),
             _ => None,
         };
         if let Some(network) = bech32_network {
@@ -479,15 +479,15 @@ impl FromStr for Address {
         }
 
         let (network, payload) = match data[0] {
-            0 => (
+            36 => (
                 Network::Fujicoin,
                 Payload::PubkeyHash(PubkeyHash::from_slice(&data[1..]).unwrap()),
             ),
-            5 => (
+            16 => (
                 Network::Fujicoin,
                 Payload::ScriptHash(ScriptHash::from_slice(&data[1..]).unwrap()),
             ),
-            111 => (
+            74 => (
                 Network::Testnet,
                 Payload::PubkeyHash(PubkeyHash::from_slice(&data[1..]).unwrap()),
             ),
