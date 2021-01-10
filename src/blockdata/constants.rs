@@ -39,7 +39,7 @@ pub const TARGET_BLOCK_SPACING: u32 = 60;
 /// How many blocks between diffchanges
 pub const DIFFCHANGE_INTERVAL: u32 = 2016;
 /// How much time on average should occur between diffchanges
-pub const DIFFCHANGE_TIMESPAN: u32 = 1.4 * 24 * 3600;
+pub const DIFFCHANGE_TIMESPAN: u32 = 14 * 24 * 360;
 /// The maximum allowed weight for a block, see BIP 141 (network rule)
 pub const MAX_BLOCK_WEIGHT: u32 = 4_000_000;
 /// The minimum transaction weight for a valid serialized transaction
