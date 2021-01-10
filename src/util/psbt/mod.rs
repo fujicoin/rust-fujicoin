@@ -1,6 +1,6 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written by
-//   The Rust Bitcoin developers
+//   The Rust Fujicoin developers
 //
 // To the extent possible under law, the author(s) have dedicated all
 // copyright and related and neighboring rights to this software to
@@ -14,8 +14,8 @@
 
 //! # Partially Signed Transactions
 //!
-//! Implementation of BIP174 Partially Signed Bitcoin Transaction Format as
-//! defined at https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki
+//! Implementation of BIP174 Partially Signed Fujicoin Transaction Format as
+//! defined at https://github.com/fujicoin/bips/blob/master/bip-0174.mediawiki
 //! except we define PSBTs containing non-standard SigHash types as invalid.
 
 use blockdata::script::Script;
@@ -171,7 +171,7 @@ mod tests {
 
     use blockdata::script::Script;
     use blockdata::transaction::{Transaction, TxIn, TxOut, OutPoint};
-    use network::constants::Network::Bitcoin;
+    use network::constants::Network::Fujicoin;
     use consensus::encode::{deserialize, serialize, serialize_hex};
     use util::bip32::{ChildNumber, DerivationPath, ExtendedPrivKey, ExtendedPubKey, Fingerprint};
     use util::key::PublicKey;
@@ -208,7 +208,7 @@ mod tests {
 
         let mut hd_keypaths: BTreeMap<PublicKey, (Fingerprint, DerivationPath)> = Default::default();
 
-        let mut sk: ExtendedPrivKey = ExtendedPrivKey::new_master(Bitcoin, &seed).unwrap();
+        let mut sk: ExtendedPrivKey = ExtendedPrivKey::new_master(Fujicoin, &seed).unwrap();
 
         let fprint: Fingerprint = sk.fingerprint(&secp);
 

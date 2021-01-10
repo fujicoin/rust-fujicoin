@@ -1,6 +1,6 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2019 by
-//   The rust-bitcoin developers
+//   The rust-fujicoin developers
 //
 // To the extent possible under law, the author(s) have dedicated all
 // copyright and related and neighboring rights to this software to
@@ -12,7 +12,7 @@
 // If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 //
 
-// This module was largely copied from https://github.com/rust-bitcoin/murmel/blob/master/src/blockfilter.rs
+// This module was largely copied from https://github.com/rust-fujicoin/murmel/blob/master/src/blockfilter.rs
 // on 11. June 2019 which is licensed under Apache, that file specifically
 // was written entirely by Tamas Blummer, who is re-licensing its contents here as CC0.
 
@@ -537,7 +537,7 @@ mod test {
     #[test]
     fn test_blockfilters() {
 
-        // test vectors from: https://github.com/jimpo/bitcoin/blob/c7efb652f3543b001b4dd22186a354605b14f47e/src/test/data/blockfilters.json
+        // test vectors from: https://github.com/jimpo/fujicoin/blob/c7efb652f3543b001b4dd22186a354605b14f47e/src/test/data/blockfilters.json
         let data = r#"
         [
             ["Block Height,Block Hash,Block,[Prev Output Scripts for Block],Previous Basic Header,Basic Filter,Basic Header,Notes"],

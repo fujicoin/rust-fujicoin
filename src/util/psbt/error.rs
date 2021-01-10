@@ -1,6 +1,6 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written by
-//   The Rust Bitcoin developers
+//   The Rust Fujicoin developers
 //
 // To the extent possible under law, the author(s) have dedicated all
 // copyright and related and neighboring rights to this software to

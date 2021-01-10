@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -14,7 +14,7 @@
 
 //! Utility functions
 //!
-//! Functions needed by all parts of the Bitcoin library
+//! Functions needed by all parts of the Fujicoin library
 
 pub mod key;
 pub mod address;

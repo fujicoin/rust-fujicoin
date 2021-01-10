@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2018 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 // To the extent possible under law, the author(s) have dedicated all
@@ -225,9 +225,9 @@ impl<R: DerefMut<Target=Transaction>> SigHashCache<R> {
     ///
     /// This allows in-line signing such as
     /// ```
-    /// use bitcoin::blockdata::transaction::{Transaction, SigHashType};
-    /// use bitcoin::util::bip143::SigHashCache;
-    /// use bitcoin::Script;
+    /// use fujicoin::blockdata::transaction::{Transaction, SigHashType};
+    /// use fujicoin::util::bip143::SigHashCache;
+    /// use fujicoin::Script;
     ///
     /// let mut tx_to_sign = Transaction { version: 2, lock_time: 0, input: Vec::new(), output: Vec::new() };
     /// let input_count = tx_to_sign.input.len();
@@ -262,7 +262,7 @@ mod tests {
     fn p2pkh_hex(pk: &str) -> Script {
         let pk = Vec::from_hex(pk).unwrap();
         let pk = PublicKey::from_slice(pk.as_slice()).unwrap();
-        let witness_script = Address::p2pkh(&pk, Network::Bitcoin).script_pubkey();
+        let witness_script = Address::p2pkh(&pk, Network::Fujicoin).script_pubkey();
         witness_script
     }
 
@@ -395,7 +395,7 @@ mod tests {
     }
     #[test]
     fn bip143_sighash_flags() {
-        // All examples generated via Bitcoin Core RPC using signrawtransactionwithwallet
+        // All examples generated via Fujicoin Core RPC using signrawtransactionwithwallet
         // with additional debug printing
         run_test_sighash_bip143("0200000001cf309ee0839b8aaa3fbc84f8bd32e9c6357e99b49bf6a3af90308c68e762f1d70100000000feffffff0288528c61000000001600146e8d9e07c543a309dcdeba8b50a14a991a658c5be0aebb0000000000160014698d8419804a5d5994704d47947889ff7620c004db000000", "76a91462744660c6b5133ddeaacbc57d2dc2d7b14d0b0688ac", 0, 1648888940, 0x01, "0a1bc2758dbb5b3a56646f8cafbf63f410cc62b77a482f8b87552683300a7711");
         run_test_sighash_bip143("0200000001cf309ee0839b8aaa3fbc84f8bd32e9c6357e99b49bf6a3af90308c68e762f1d70100000000feffffff0288528c61000000001600146e8d9e07c543a309dcdeba8b50a14a991a658c5be0aebb0000000000160014698d8419804a5d5994704d47947889ff7620c004db000000", "76a91462744660c6b5133ddeaacbc57d2dc2d7b14d0b0688ac", 0, 1648888940, 0x02, "3e275ac8b084f79f756dcd535bffb615cc94a685eefa244d9031eaf22e4cec12");
