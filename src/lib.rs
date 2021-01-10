@@ -51,7 +51,7 @@
 #![allow(ellipsis_inclusive_range_patterns)]
 
 // Re-exported dependencies.
-#[macro_use] pub extern crate fujicoin_hashes as hashes;
+#[macro_use] pub extern crate bitcoin_hashes as hashes;
 pub extern crate secp256k1;
 pub extern crate bech32;
 
@@ -60,7 +60,7 @@ pub extern crate bech32;
 #[cfg(all(test, feature = "serde"))] extern crate serde_json;
 #[cfg(all(test, feature = "serde"))] extern crate serde_test;
 #[cfg(all(test, feature = "unstable"))] extern crate test;
-#[cfg(feature="fujicoinconsensus")] extern crate fujicoinconsensus;
+#[cfg(feature="bitcoinconsensus")] extern crate bitcoinconsensus;
 
 #[cfg(target_pointer_width = "16")]
 compile_error!("rust-fujicoin cannot be used on 16-bit architectures");

@@ -31,7 +31,7 @@ use hashes::hex::FromHex;
 
 use util::endian;
 use blockdata::constants::WITNESS_SCALE_FACTOR;
-#[cfg(feature="fujicoinconsensus")] use blockdata::script;
+#[cfg(feature="bitcoinconsensus")] use blockdata::script;
 use blockdata::script::Script;
 use consensus::{encode, Decodable, Encodable};
 use hash_types::*;
@@ -433,7 +433,7 @@ impl Transaction {
         }
     }
 
-    #[cfg(feature="fujicoinconsensus")]
+    #[cfg(feature="bitcoinconsensus")]
     /// Verify that this transaction is able to spend its inputs
     /// The lambda spent should not return the same TxOut twice!
     pub fn verify<S>(&self, mut spent: S) -> Result<(), script::Error>
@@ -1190,7 +1190,7 @@ mod tests {
     }
 
     #[test]
-    #[cfg(feature="fujicoinconsensus")]
+    #[cfg(feature="bitcoinconsensus")]
     fn test_transaction_verify () {
         use hashes::hex::FromHex;
         use std::collections::HashMap;

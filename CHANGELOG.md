@@ -18,7 +18,7 @@
 # 0.23.0 - 2020-01-07
 
 - Update `secp256k1` dependency to `0.17.1`.
-- Update `fujicoinconsensus` dependency to `0.19.0-1`.
+- Update `bitcoinconsensus` dependency to `0.19.0-1`.
 - Update `bech32` dependency to `0.7.2`.
 
 # 0.22.0 - 2020-01-07
@@ -59,7 +59,7 @@
 
 # 0.20.0 - 2019-08-23
 
-* Update `secp256k1` 0.15 and `fujicoinconsensus` 0.17
+* Update `secp256k1` 0.15 and `bitcoinconsensus` 0.17
 
 # 0.19.0 - 2019-08-16
 
@@ -88,8 +88,8 @@
 * Drop `Decimal` type.
 * Drop `LoneHeaders` type.
 * Replace `strason` dependency with (optional) `serde_json`.
-* Export the `fujicoin_hashes` and `secp256k1` dependent crates.
-* Updated `fujicoin_hashes` dependency to v0.7.
+* Export the `bitcoin_hashes` and `secp256k1` dependent crates.
+* Updated `bitcoin_hashes` dependency to v0.7.
 * Removed `rand` and `serde_test` dependencies.
 * Internal improvements to consensus encoding logic.
 
@@ -107,7 +107,7 @@
 # 0.17.0 - 2019-02-28 - ``The PSBT Release''
 
 * **Update minimum rustc version to 1.22**.
-* [Replace `rust-crypto` with `fujicoin_hashes`; refactor hash types](https://github.com/rust-fujicoin/rust-fujicoin/pull/215)
+* [Replace `rust-crypto` with `bitcoin_hashes`; refactor hash types](https://github.com/rust-fujicoin/rust-fujicoin/pull/215)
 * [Remove `Address::p2pk`](https://github.com/rust-fujicoin/rust-fujicoin/pull/222/)
 * Remove misleading blanket `MerkleRoot` implementation; [it is now only defined for `Block`](https://github.com/rust-fujicoin/rust-fujicoin/pull/218)
 * [Add BIP157](https://github.com/rust-fujicoin/rust-fujicoin/pull/215) (client-side block filtering messages)
@@ -193,7 +193,7 @@
 
 * The in-memory blockchain was moved into a dedicated project rust-fujicoin-chain.
 * Removed old script interpreter
-* A new optional feature "fujicoinconsensus" lets this library use Fujicoin Core's native
+* A new optional feature "bitcoinconsensus" lets this library use Fujicoin Core's native
 script verifier, wrappend into Rust by the rust-fujicoinconsenus project.
 See `Transaction::verify` and `Script::verify` methods.
 * Replaced Base58 traits with `encode_slice`, `check_encode_slice`, from and `from_check` functions in the base58 module.
