@@ -20,7 +20,7 @@ use hashes::{sha256d, Hash, HashEngine};
 use blockdata::opcodes;
 use consensus::{encode, Encodable};
 
-static MSG_SIGN_PREFIX: &[u8] = b"\x18Fujicoin Signed Message:\n";
+static MSG_SIGN_PREFIX: &[u8] = b"\x19FujiCoin Signed Message:\n";
 
 /// Search for `needle` in the vector `haystack` and remove every
 /// instance of it, returning the number of instances removed.
