@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -24,7 +24,7 @@ use consensus::{encode, Encodable};
 #[cfg(feature = "secp-recovery")]
 pub use self::message_signing::{MessageSignature, MessageSignatureError};
 
-static MSG_SIGN_PREFIX: &[u8] = b"\x18Bitcoin Signed Message:\n";
+static MSG_SIGN_PREFIX: &[u8] = b"\x18Fujicoin Signed Message:\n";
 
 #[cfg(feature = "secp-recovery")]
 mod message_signing {
@@ -37,7 +37,7 @@ mod message_signing {
     use util::key::PublicKey;
     use util::address::{Address, AddressType};
 
-    /// An error used for dealing with Bitcoin Signed Messages.
+    /// An error used for dealing with Fujicoin Signed Messages.
     #[derive(Debug, PartialEq, Eq)]
     pub enum MessageSignatureError {
         /// Signature is expected to be 65 bytes.
@@ -74,7 +74,7 @@ mod message_signing {
         }
     }
 
-    /// A signature on a Bitcoin Signed Message.
+    /// A signature on a Fujicoin Signed Message.
     ///
     /// In order to use the `to_base64` and `from_base64` methods, as well as the
     /// `fmt::Display` and `str::FromStr` implementations, the `base64` feature
@@ -230,7 +230,7 @@ pub fn script_find_and_remove(haystack: &mut Vec<u8>, needle: &[u8]) -> usize {
     n_deleted
 }
 
-/// Hash message for signature using Bitcoin's message signing format
+/// Hash message for signature using Fujicoin's message signing format
 pub fn signed_msg_hash(msg: &str) -> sha256d::Hash {
     let mut engine = sha256d::Hash::engine();
     engine.input(MSG_SIGN_PREFIX);
@@ -299,7 +299,7 @@ mod tests {
         use secp256k1;
 
         let secp = secp256k1::Secp256k1::new();
-        let message = "rust-bitcoin MessageSignature test";
+        let message = "rust-fujicoin MessageSignature test";
         let msg_hash = super::signed_msg_hash(&message);
         let msg = secp256k1::Message::from_slice(&msg_hash).unwrap();
 
@@ -316,11 +316,11 @@ mod tests {
         assert_eq!(pubkey.compressed, true);
         assert_eq!(pubkey.key, secp256k1::PublicKey::from_secret_key(&secp, &privkey));
 
-        let p2pkh = ::Address::p2pkh(&pubkey, ::Network::Bitcoin);
+        let p2pkh = ::Address::p2pkh(&pubkey, ::Network::Fujicoin);
         assert_eq!(signature2.is_signed_by_address(&secp, &p2pkh, msg_hash), Ok(true));
-        let p2wpkh = ::Address::p2wpkh(&pubkey, ::Network::Bitcoin).unwrap();
+        let p2wpkh = ::Address::p2wpkh(&pubkey, ::Network::Fujicoin).unwrap();
         assert_eq!(signature2.is_signed_by_address(&secp, &p2wpkh, msg_hash), Ok(false));
-        let p2shwpkh = ::Address::p2shwpkh(&pubkey, ::Network::Bitcoin).unwrap();
+        let p2shwpkh = ::Address::p2shwpkh(&pubkey, ::Network::Fujicoin).unwrap();
         assert_eq!(signature2.is_signed_by_address(&secp, &p2shwpkh, msg_hash), Ok(false));
     }
 }

@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -15,7 +15,7 @@
 //! Blockdata network messages
 //!
 //! This module describes network messages which are used for passing
-//! Bitcoin data (blocks and transactions) around.
+//! Fujicoin data (blocks and transactions) around.
 //!
 
 use std::io;

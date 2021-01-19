@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //   Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -14,7 +14,7 @@
 
 //! Network constants
 //!
-//! This module provides various constants relating to the Bitcoin network
+//! This module provides various constants relating to the Fujicoin network
 //! protocol, such as protocol versioning and magic header bytes.
 //!
 //! The [`Network`][1] type implements the [`Decodable`][2] and
@@ -28,10 +28,10 @@
 //! # Example: encoding a network's magic bytes
 //!
 //! ```rust
-//! use bitcoin::network::constants::Network;
-//! use bitcoin::consensus::encode::serialize;
+//! use fujicoin::network::constants::Network;
+//! use fujicoin::consensus::encode::serialize;
 //!
-//! let network = Network::Bitcoin;
+//! let network = Network::Fujicoin;
 //! let bytes = serialize(&network.magic());
 //!
 //! assert_eq!(&bytes[..], &[0xF9, 0xBE, 0xB4, 0xD9]);
@@ -48,11 +48,11 @@ user_enum! {
     /// The cryptocurrency to act on
     #[derive(Copy, PartialEq, Eq, PartialOrd, Ord, Clone, Hash, Debug)]
     pub enum Network {
-        /// Classic Bitcoin
-        Bitcoin <-> "bitcoin",
-        /// Bitcoin's testnet
+        /// Classic Fujicoin
+        Fujicoin <-> "fujicoin",
+        /// Fujicoin's testnet
         Testnet <-> "testnet",
-        /// Bitcoin's regtest
+        /// Fujicoin's regtest
         Regtest <-> "regtest"
     }
 }
@@ -63,15 +63,15 @@ impl Network {
     /// # Examples
     ///
     /// ```rust
-    /// use bitcoin::network::constants::Network;
+    /// use fujicoin::network::constants::Network;
     ///
-    /// assert_eq!(Some(Network::Bitcoin), Network::from_magic(0xD9B4BEF9));
+    /// assert_eq!(Some(Network::Fujicoin), Network::from_magic(0xD9B4BEF9));
     /// assert_eq!(None, Network::from_magic(0xFFFFFFFF));
     /// ```
     pub fn from_magic(magic: u32) -> Option<Network> {
         // Note: any new entries here must be added to `magic` below
         match magic {
-            0xD9B4BEF9 => Some(Network::Bitcoin),
+            0xD9B4BEF9 => Some(Network::Fujicoin),
             0x0709110B => Some(Network::Testnet),
             0xDAB5BFFA => Some(Network::Regtest),
             _ => None
@@ -84,15 +84,15 @@ impl Network {
     /// # Examples
     ///
     /// ```rust
-    /// use bitcoin::network::constants::Network;
+    /// use fujicoin::network::constants::Network;
     ///
-    /// let network = Network::Bitcoin;
+    /// let network = Network::Fujicoin;
     /// assert_eq!(network.magic(), 0xD9B4BEF9);
     /// ```
     pub fn magic(self) -> u32 {
         // Note: any new entries here must be added to `from_magic` above
         match self {
-            Network::Bitcoin => 0xD9B4BEF9,
+            Network::Fujicoin => 0xD9B4BEF9,
             Network::Testnet => 0x0709110B,
             Network::Regtest => 0xDAB5BFFA,
         }
@@ -108,16 +108,16 @@ impl ServiceFlags {
     pub const NONE: ServiceFlags = ServiceFlags(0);
 
     /// NETWORK means that the node is capable of serving the complete block chain. It is currently
-    /// set by all Bitcoin Core non pruned nodes, and is unset by SPV clients or other light
+    /// set by all Fujicoin Core non pruned nodes, and is unset by SPV clients or other light
     /// clients.
     pub const NETWORK: ServiceFlags = ServiceFlags(1 << 0);
 
-    /// GETUTXO means the node is capable of responding to the getutxo protocol request.  Bitcoin
-    /// Core does not support this but a patch set called Bitcoin XT does.
+    /// GETUTXO means the node is capable of responding to the getutxo protocol request.  Fujicoin
+    /// Core does not support this but a patch set called Fujicoin XT does.
     /// See BIP 64 for details on how this is implemented.
     pub const GETUTXO: ServiceFlags = ServiceFlags(1 << 1);
 
-    /// BLOOM means the node is capable and willing to handle bloom-filtered connections.  Bitcoin
+    /// BLOOM means the node is capable and willing to handle bloom-filtered connections.  Fujicoin
     /// Core nodes used to support this by default, without advertising this bit, but no longer do
     /// as of protocol version 70011 (= NO_BLOOM_VERSION)
     pub const BLOOM: ServiceFlags = ServiceFlags(1 << 2);
@@ -278,7 +278,7 @@ mod tests {
     #[test]
     fn serialize_test() {
         assert_eq!(
-            serialize(&Network::Bitcoin.magic()),
+            serialize(&Network::Fujicoin.magic()),
             &[0xf9, 0xbe, 0xb4, 0xd9]
         );
         assert_eq!(
@@ -292,7 +292,7 @@ mod tests {
 
         assert_eq!(
             deserialize(&[0xf9, 0xbe, 0xb4, 0xd9]).ok(),
-            Some(Network::Bitcoin.magic())
+            Some(Network::Fujicoin.magic())
         );
         assert_eq!(
             deserialize(&[0x0b, 0x11, 0x09, 0x07]).ok(),
@@ -306,11 +306,11 @@ mod tests {
 
     #[test]
     fn string_test() {
-        assert_eq!(Network::Bitcoin.to_string(), "bitcoin");
+        assert_eq!(Network::Fujicoin.to_string(), "fujicoin");
         assert_eq!(Network::Testnet.to_string(), "testnet");
         assert_eq!(Network::Regtest.to_string(), "regtest");
 
-        assert_eq!("bitcoin".parse::<Network>().unwrap(), Network::Bitcoin);
+        assert_eq!("fujicoin".parse::<Network>().unwrap(), Network::Fujicoin);
         assert_eq!("testnet".parse::<Network>().unwrap(), Network::Testnet);
         assert_eq!("regtest".parse::<Network>().unwrap(), Network::Regtest);
         assert!("fakenet".parse::<Network>().is_err());

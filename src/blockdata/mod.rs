@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //   Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -15,7 +15,7 @@
 //! Blockdata
 //!
 //! This module defines structures and functions for storing the blocks and
-//! transactions which make up the Bitcoin system.
+//! transactions which make up the Fujicoin system.
 //!
 
 pub mod constants;

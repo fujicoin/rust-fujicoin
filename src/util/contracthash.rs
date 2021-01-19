@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2015 by
 //   Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -32,7 +32,7 @@ use hash_types::ScriptHash;
 use network::constants::Network;
 use util::address;
 
-/// Encoding of "pubkey here" in script; from Bitcoin Core `src/script/script.h`
+/// Encoding of "pubkey here" in script; from Fujicoin Core `src/script/script.h`
 static PUBKEY: u8 = 0xFE;
 
 /// A contract-hash error
@@ -332,17 +332,17 @@ mod tests {
         let sk1 = PrivateKey {
             key: sk1,
             compressed: true,
-            network: Network::Bitcoin,
+            network: Network::Fujicoin,
         };
         let sk2 = PrivateKey {
             key: sk2,
             compressed: false,
-            network: Network::Bitcoin,
+            network: Network::Fujicoin,
         };
         let sk3 = PrivateKey {
             key: sk3,
             compressed: true,
-            network: Network::Bitcoin,
+            network: Network::Fujicoin,
         };
         let pks = [
             PublicKey { key: pk1, compressed: true },

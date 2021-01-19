@@ -1,6 +1,6 @@
 #!/bin/sh -ex
 
-FEATURES="base64 bitcoinconsensus use-serde rand"
+FEATURES="base64 fujicoinconsensus use-serde rand"
 
 if [ "$DO_COV" = true ]
 then
@@ -46,7 +46,7 @@ if [ -n "$AS_DEPENDENCY" ]
 then
     cargo new dep_test
     cd dep_test
-    echo 'bitcoin = { path = "..", features = ["use-serde"] }' >> Cargo.toml
+    echo 'fujicoin = { path = "..", features = ["use-serde"] }' >> Cargo.toml
 
     # Pin `cc` for Rust 1.29
     if [ "$TRAVIS_RUST_VERSION" = "1.29.0" ]; then

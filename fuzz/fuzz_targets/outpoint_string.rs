@@ -1,8 +1,8 @@
 
-extern crate bitcoin;
+extern crate fujicoin;
 
-use bitcoin::blockdata::transaction::OutPoint;
-use bitcoin::consensus::encode;
+use fujicoin::blockdata::transaction::OutPoint;
+use fujicoin::consensus::encode;
 
 use std::str::FromStr;
 
