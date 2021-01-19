@@ -66,6 +66,25 @@ impl BlockHeader {
         BlockHash::from_engine(engine)
     }
 
+    /// Return the block hash scrypt-N11(2048).
+    pub fn block_pow_hash(&self) -> BlockHash {
+        let mut raw_header_hash = serialize(&self.version);
+        let mut vec_prev_blockhash = serialize(&self.prev_blockhash);
+        vec_prev_blockhash.reverse();
+        raw_header_hash.append(&mut vec_prev_blockhash);
+        let mut vec_merkle_root = serialize(&self.merkle_root);
+        vec_merkle_root.reverse();
+        raw_header_hash.append(&mut vec_merkle_root);
+        raw_header_hash.append(&mut serialize(&self.time));
+        raw_header_hash.append(&mut serialize(&self.bits));
+        raw_header_hash.append(&mut serialize(&self.nonce));
+
+        let params = scrypt::ScryptParams::new(1, 1, 2048).unwrap();
+        let mut output = vec![0; 32];
+        scrypt::scrypt(&raw_header_hash, &raw_header_hash, &params, &mut output).expect("OS RNG should not fail");
+        BlockHash::from_slice(&output[..]).expect("maybe ok")
+    }
+
     /// Computes the target [0, T] that a blockhash must land in to be valid
     pub fn target(&self) -> Uint256 {
         Self::u256_from_compact_target(self.bits)
@@ -173,25 +192,6 @@ impl Block {
         self.header.block_hash()
     }
     
-    /// Return the block hash scrypt-N11(2048).
-    pub fn block_pow_hash(&self) -> BlockHash {
-        let mut raw_header_hash = serialize(&self.version);
-        let mut vec_prev_blockhash = serialize(&self.prev_blockhash);
-        vec_prev_blockhash.reverse();
-        raw_header_hash.append(&mut vec_prev_blockhash);
-        let mut vec_merkle_root = serialize(&self.merkle_root);
-        vec_merkle_root.reverse();
-        raw_header_hash.append(&mut vec_merkle_root);
-        raw_header_hash.append(&mut serialize(&self.time));
-        raw_header_hash.append(&mut serialize(&self.bits));
-        raw_header_hash.append(&mut serialize(&self.nonce));
-
-        let params = scrypt::ScryptParams::new(1, 1, 2048).unwrap();
-        let mut output = vec![0; 32];
-        scrypt::scrypt(&raw_header_hash, &raw_header_hash, &params, &mut output).expect("OS RNG should not fail");
-        BlockHash::from_slice(&output[..]).expect("maybe ok")
-    }
-
     /// check if merkle root of header matches merkle root of the transaction list
     pub fn check_merkle_root (&self) -> bool {
         self.header.merkle_root == self.merkle_root()
