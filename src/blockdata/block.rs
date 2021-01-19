@@ -28,7 +28,8 @@ use util::hash::fujicoin_merkle_root;
 use hashes::{Hash, HashEngine};
 use hash_types::{Wtxid, BlockHash, TxMerkleNode, WitnessMerkleNode, WitnessCommitment};
 use util::uint::Uint256;
-use consensus::encode::Encodable;
+use consensus::encode::{Encodable, serialize};
+extern crate scrypt;
 use network::constants::Network;
 use blockdata::transaction::Transaction;
 use blockdata::constants::{max_target, WITNESS_SCALE_FACTOR};
@@ -134,7 +135,7 @@ impl BlockHeader {
         if target != required_target {
             return Err(BlockBadTarget);
         }
-        let data: [u8; 32] = self.block_hash().into_inner();
+        let data: [u8; 32] = self.block_pow_hash().into_inner();
         let mut ret = [0u64; 4];
         util::endian::bytes_to_u64_slice_le(&data, &mut ret);
         let hash = &Uint256(ret);
@@ -170,6 +171,25 @@ impl Block {
     /// Return the block hash.
     pub fn block_hash(&self) -> BlockHash {
         self.header.block_hash()
+    }
+    
+    /// Return the block hash scrypt-N11(2048).
+    pub fn block_pow_hash(&self) -> BlockHash {
+        let mut raw_header_hash = serialize(&self.version);
+        let mut vec_prev_blockhash = serialize(&self.prev_blockhash);
+        vec_prev_blockhash.reverse();
+        raw_header_hash.append(&mut vec_prev_blockhash);
+        let mut vec_merkle_root = serialize(&self.merkle_root);
+        vec_merkle_root.reverse();
+        raw_header_hash.append(&mut vec_merkle_root);
+        raw_header_hash.append(&mut serialize(&self.time));
+        raw_header_hash.append(&mut serialize(&self.bits));
+        raw_header_hash.append(&mut serialize(&self.nonce));
+
+        let params = scrypt::ScryptParams::new(1, 1, 2048).unwrap();
+        let mut output = vec![0; 32];
+        scrypt::scrypt(&raw_header_hash, &raw_header_hash, &params, &mut output).expect("OS RNG should not fail");
+        BlockHash::from_slice(&output[..]).expect("maybe ok")
     }
 
     /// check if merkle root of header matches merkle root of the transaction list

@@ -24,7 +24,7 @@ use consensus::{encode, Encodable};
 #[cfg(feature = "secp-recovery")]
 pub use self::message_signing::{MessageSignature, MessageSignatureError};
 
-static MSG_SIGN_PREFIX: &[u8] = b"\x18Fujicoin Signed Message:\n";
+static MSG_SIGN_PREFIX: &[u8] = b"\x19FujiCoin Signed Message:\n";
 
 #[cfg(feature = "secp-recovery")]
 mod message_signing {
