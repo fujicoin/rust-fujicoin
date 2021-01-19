@@ -14,10 +14,10 @@ readme = "README.md"
 [features]
 default = [ "secp-recovery" ]
 base64 = [ "base64-compat" ]
-fuzztarget = ["secp256k1/fuzztarget", "fujicoin_hashes/fuzztarget"]
+fuzztarget = ["secp256k1/fuzztarget", "bitcoin_hashes/fuzztarget"]
 unstable = []
 rand = ["secp256k1/rand-std"]
-use-serde = ["serde", "fujicoin_hashes/serde", "secp256k1/serde"]
+use-serde = ["serde", "bitcoin_hashes/serde", "secp256k1/serde"]
 secp-endomorphism = ["secp256k1/endomorphism"]
 secp-lowmemory = ["secp256k1/lowmemory"]
 secp-recovery = ["secp256k1/recovery"]
@@ -25,10 +25,10 @@ secp-recovery = ["secp256k1/recovery"]
 [dependencies]
 base64-compat = { version = "1.0.0", optional = true }
 bech32 = "0.7.2"
-fujicoin_hashes = "0.9.0"
+bitcoin_hashes = "0.9.0"
 secp256k1 = { version = "0.19.0", features = [ "recovery" ] }
 
-fujicoinconsensus = { version = "0.19.0-1", optional = true }
+bitcoinconsensus = { version = "0.19.0-1", optional = true }
 serde = { version = "1", optional = true }
 
 [dev-dependencies]
