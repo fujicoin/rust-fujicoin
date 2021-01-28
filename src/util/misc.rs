@@ -25,7 +25,7 @@ use consensus::{encode, Encodable};
 pub use self::message_signing::{MessageSignature, MessageSignatureError};
 
 /// The prefix for signed messages using Fujicoin's message signing protocol.
-pub const FUJICOIN_SIGNED_MSG_PREFIX: &[u8] = b"\x18Fujicoin Signed Message:\n";
+pub const FUJICOIN_SIGNED_MSG_PREFIX: &[u8] = b"\x19FujiCoin Signed Message:\n";
 
 #[cfg(feature = "secp-recovery")]
 mod message_signing {

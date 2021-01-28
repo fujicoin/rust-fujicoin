@@ -34,7 +34,7 @@
 //! let network = Network::Fujicoin;
 //! let bytes = serialize(&network.magic());
 //!
-//! assert_eq!(&bytes[..], &[0xF9, 0xBE, 0xB4, 0xD9]);
+//! assert_eq!(&bytes[..], &[0x66, 0x75, 0x6a, 0x69]);
 //! ```
 
 use std::{fmt, io, ops};
@@ -87,10 +87,10 @@ impl Network {
     pub fn from_magic(magic: u32) -> Option<Network> {
         // Note: any new entries here must be added to `magic` below
         match magic {
-            0xD9B4BEF9 => Some(Network::Fujicoin),
-            0x0709110B => Some(Network::Testnet),
-            0x40CF030A => Some(Network::Signet),
-            0xDAB5BFFA => Some(Network::Regtest),
+            0x696A7566 => Some(Network::Fujicoin),
+            0x66756A69 => Some(Network::Testnet),
+            0xB046702F => Some(Network::Signet),
+            0x66756A69 => Some(Network::Regtest),
             _ => None
         }
     }
@@ -104,15 +104,15 @@ impl Network {
     /// use fujicoin::network::constants::Network;
     ///
     /// let network = Network::Fujicoin;
-    /// assert_eq!(network.magic(), 0xD9B4BEF9);
+    /// assert_eq!(network.magic(), 0x696A7566);
     /// ```
     pub fn magic(self) -> u32 {
         // Note: any new entries here must be added to `from_magic` above
         match self {
-            Network::Fujicoin => 0xD9B4BEF9,
-            Network::Testnet => 0x0709110B,
-            Network::Signet  => 0x40CF030A,
-            Network::Regtest => 0xDAB5BFFA,
+            Network::Fujicoin => 0x696A7566,
+            Network::Testnet => 0x66756A69,
+            Network::Signet  => 0xB046702F,
+            Network::Regtest => 0x66756A69,
         }
     }
 }
