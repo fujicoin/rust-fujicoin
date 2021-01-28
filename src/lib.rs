@@ -38,12 +38,12 @@
 #![deny(unused_must_use)]
 
 // Re-exported dependencies.
-#[macro_use] pub extern crate fujicoin_hashes as hashes;
+#[macro_use] pub extern crate bitcoin_hashes as hashes;
 pub extern crate secp256k1;
 pub extern crate bech32;
 #[cfg(feature = "base64")] pub extern crate base64;
 
-#[cfg(feature="fujicoinconsensus")] extern crate fujicoinconsensus;
+#[cfg(feature="bitcoinconsensus")] extern crate bitcoinconsensus;
 #[cfg(feature = "serde")] #[macro_use] extern crate serde;
 #[cfg(all(test, feature = "serde"))] extern crate serde_json;
 #[cfg(all(test, feature = "serde"))] extern crate serde_test;

@@ -1,6 +1,6 @@
 #!/bin/sh -ex
 
-FEATURES="base64 fujicoinconsensus use-serde rand"
+FEATURES="base64 bitcoinconsensus use-serde rand"
 
 pin_common_verions() {
     cargo generate-lockfile --verbose

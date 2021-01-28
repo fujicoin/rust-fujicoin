@@ -61,7 +61,7 @@ pub enum Error {
     },
     /// Unable to parse as a standard SigHash type.
     NonStandardSigHashType(u32),
-    /// Parsing errors from fujicoin_hashes
+    /// Parsing errors from bitcoin_hashes
     HashParseError(hashes::Error),
     /// The pre-image must hash to the correponding psbt hash
     InvalidPreimageHashPair {
