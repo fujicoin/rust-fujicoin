@@ -1,7 +1,7 @@
-extern crate bitcoin;
+extern crate fujicoin;
 
 fn do_test(data: &[u8]) {
-    let _: Result<bitcoin::blockdata::block::Block, _>= bitcoin::consensus::encode::deserialize(data);
+    let _: Result<fujicoin::blockdata::block::Block, _>= fujicoin::consensus::encode::deserialize(data);
 }
 
 #[cfg(feature = "afl")]

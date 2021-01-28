@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 // To the extent possible under law, the author(s) have dedicated all
@@ -11,9 +11,9 @@
 // If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 //
 
-//! Bitcoin Keys
+//! Fujicoin Keys
 //!
-//! Keys used in Bitcoin that can be roundtrip (de)serialized.
+//! Keys used in Fujicoin that can be roundtrip (de)serialized.
 //!
 
 use std::fmt::{self, Write};
@@ -68,7 +68,7 @@ impl From<secp256k1::Error> for Error {
     }
 }
 
-/// A Bitcoin ECDSA public key
+/// A Fujicoin ECDSA public key
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct PublicKey {
     /// Whether this public key should be serialized as compressed
@@ -78,7 +78,7 @@ pub struct PublicKey {
 }
 
 impl PublicKey {
-    /// Returns bitcoin 160-bit hash of the public key
+    /// Returns fujicoin 160-bit hash of the public key
     pub fn pubkey_hash(&self) -> PubkeyHash {
         if self.compressed {
             PubkeyHash::hash(&self.key.serialize())
@@ -87,7 +87,7 @@ impl PublicKey {
         }
     }
 
-    /// Returns bitcoin 160-bit hash of the public key for witness program
+    /// Returns fujicoin 160-bit hash of the public key for witness program
     pub fn wpubkey_hash(&self) -> Option<WPubkeyHash> {
         if self.compressed {
             Some(WPubkeyHash::from_inner(
@@ -181,7 +181,7 @@ impl FromStr for PublicKey {
 }
 
 #[derive(Copy, Clone, PartialEq, Eq)]
-/// A Bitcoin ECDSA private key
+/// A Fujicoin ECDSA private key
 pub struct PrivateKey {
     /// Whether this private key should be serialized as compressed
     pub compressed: bool,
@@ -209,7 +209,7 @@ impl PrivateKey {
     pub fn fmt_wif(&self, fmt: &mut dyn fmt::Write) -> fmt::Result {
         let mut ret = [0; 34];
         ret[0] = match self.network {
-            Network::Bitcoin => 128,
+            Network::Fujicoin => 128,
             Network::Testnet | Network::Signet | Network::Regtest => 239,
         };
         ret[1..33].copy_from_slice(&self.key[..]);
@@ -241,7 +241,7 @@ impl PrivateKey {
         };
 
         let network = match data[0] {
-            128 => Network::Bitcoin,
+            128 => Network::Fujicoin,
             239 => Network::Testnet,
             x   => { return Err(Error::Base58(base58::Error::InvalidVersion(vec![x]))); }
         };
@@ -400,7 +400,7 @@ mod tests {
     use std::str::FromStr;
     use hashes::hex::ToHex;
     use network::constants::Network::Testnet;
-    use network::constants::Network::Bitcoin;
+    use network::constants::Network::Fujicoin;
     use util::address::Address;
 
     #[test]
@@ -423,7 +423,7 @@ mod tests {
 
         // mainnet uncompressed
         let sk = PrivateKey::from_wif("5JYkZjmN7PVMjJUfJWfRFwtuXTGB439XV6faajeHPAM9Z2PT2R3").unwrap();
-        assert_eq!(sk.network, Bitcoin);
+        assert_eq!(sk.network, Fujicoin);
         assert_eq!(sk.compressed, false);
         assert_eq!(&sk.to_wif(), "5JYkZjmN7PVMjJUfJWfRFwtuXTGB439XV6faajeHPAM9Z2PT2R3");
 

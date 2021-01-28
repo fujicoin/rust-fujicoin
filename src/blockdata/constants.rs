@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -32,7 +32,7 @@ use util::uint::Uint256;
 
 /// The maximum allowable sequence number
 pub const MAX_SEQUENCE: u32 = 0xFFFFFFFF;
-/// How many satoshis are in "one bitcoin"
+/// How many satoshis are in "one fujicoin"
 pub const COIN_VALUE: u64 = 100_000_000;
 /// How many seconds between blocks we expect on average
 pub const TARGET_BLOCK_SPACING: u32 = 600;
@@ -48,7 +48,7 @@ pub const MIN_TRANSACTION_WEIGHT: u32 = 4 * 60;
 pub const WITNESS_SCALE_FACTOR: usize = 4;
 
 
-/// In Bitcoind this is insanely described as ~((u256)0 >> 32)
+/// In Fujicoind this is insanely described as ~((u256)0 >> 32)
 pub fn max_target(_: Network) -> Uint256 {
     Uint256::from_u64(0xFFFF).unwrap() << 208
 }
@@ -60,8 +60,8 @@ pub fn max_money(_: Network) -> u64 {
     21_000_000 * COIN_VALUE
 }
 
-/// Constructs and returns the coinbase (and only) transaction of the Bitcoin genesis block
-fn bitcoin_genesis_tx() -> Transaction {
+/// Constructs and returns the coinbase (and only) transaction of the Fujicoin genesis block
+fn fujicoin_genesis_tx() -> Transaction {
     // Base
     let mut ret = Transaction {
         version: 1,
@@ -98,11 +98,11 @@ fn bitcoin_genesis_tx() -> Transaction {
 
 /// Constructs and returns the genesis block
 pub fn genesis_block(network: Network) -> Block {
-    let txdata = vec![bitcoin_genesis_tx()];
+    let txdata = vec![fujicoin_genesis_tx()];
     let hash: sha256d::Hash = txdata[0].txid().into();
     let merkle_root = hash.into();
     match network {
-        Network::Bitcoin => {
+        Network::Fujicoin => {
             Block {
                 header: BlockHeader {
                     version: 1,
@@ -164,12 +164,12 @@ mod test {
 
     use network::constants::Network;
     use consensus::encode::serialize;
-    use blockdata::constants::{genesis_block, bitcoin_genesis_tx};
+    use blockdata::constants::{genesis_block, fujicoin_genesis_tx};
     use blockdata::constants::{MAX_SEQUENCE, COIN_VALUE};
 
     #[test]
-    fn bitcoin_genesis_first_transaction() {
-        let gen = bitcoin_genesis_tx();
+    fn fujicoin_genesis_first_transaction() {
+        let gen = fujicoin_genesis_tx();
 
         assert_eq!(gen.version, 1);
         assert_eq!(gen.input.len(), 1);
@@ -190,8 +190,8 @@ mod test {
     }
 
     #[test]
-    fn bitcoin_genesis_full_block() {
-        let gen = genesis_block(Network::Bitcoin);
+    fn fujicoin_genesis_full_block() {
+        let gen = genesis_block(Network::Fujicoin);
 
         assert_eq!(gen.header.version, 1);
         assert_eq!(gen.header.prev_blockhash, Default::default());

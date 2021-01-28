@@ -1,6 +1,6 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written by
-//   The Rust Bitcoin developers
+//   The Rust Fujicoin developers
 //
 // To the extent possible under law, the author(s) have dedicated all
 // copyright and related and neighboring rights to this software to
@@ -15,7 +15,7 @@
 //! # Raw PSBT Key-Value Pairs
 //!
 //! Raw PSBT key-value pairs as defined at
-//! https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki.
+//! https://github.com/fujicoin/bips/blob/master/bip-0174.mediawiki.
 
 use std::{fmt, io};
 

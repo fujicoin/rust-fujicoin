@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -12,7 +12,7 @@
 // If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 //
 
-//! Bitcoin Block
+//! Fujicoin Block
 //!
 //! A block is a bundle of transactions with a proof-of-work attached,
 //! which commits to an earlier block to form the blockchain. This
@@ -24,7 +24,7 @@ use std::fmt;
 
 use util;
 use util::Error::{BlockBadTarget, BlockBadProofOfWork};
-use util::hash::bitcoin_merkle_root;
+use util::hash::fujicoin_merkle_root;
 use hashes::{Hash, HashEngine};
 use hash_types::{Wtxid, BlockHash, TxMerkleNode, WitnessMerkleNode, WitnessCommitment};
 use util::uint::Uint256;
@@ -75,7 +75,7 @@ impl BlockHeader {
     /// [`Uint256`]: ../../util/uint/struct.Uint256.html
     ///
     /// ```
-    /// use bitcoin::blockdata::block::BlockHeader;
+    /// use fujicoin::blockdata::block::BlockHeader;
     ///
     /// assert_eq!(0x1d00ffff,
     ///     BlockHeader::compact_target_from_u256(
@@ -143,7 +143,7 @@ impl BlockHeader {
 
     /// Returns the total work of the block
     pub fn work(&self) -> Uint256 {
-        // 2**256 / (target + 1) == ~target / (target+1) + 1    (eqn shamelessly stolen from bitcoind)
+        // 2**256 / (target + 1) == ~target / (target+1) + 1    (eqn shamelessly stolen from fujicoind)
         let mut ret = !self.target();
         let mut ret1 = self.target();
         ret1.increment();
@@ -153,7 +153,7 @@ impl BlockHeader {
     }
 }
 
-/// A Bitcoin block, which is a collection of transactions with an attached
+/// A Fujicoin block, which is a collection of transactions with an attached
 /// proof of work.
 #[derive(PartialEq, Eq, Clone, Debug)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -207,7 +207,7 @@ impl Block {
     /// Calculate the transaction merkle root.
     pub fn merkle_root(&self) -> TxMerkleNode {
         let hashes = self.txdata.iter().map(|obj| obj.txid().as_hash());
-        bitcoin_merkle_root(hashes).into()
+        fujicoin_merkle_root(hashes).into()
     }
 
     /// compute witness commitment for the transaction list
@@ -228,7 +228,7 @@ impl Block {
                 t.wtxid().as_hash()
             }
         );
-        bitcoin_merkle_root(hashes).into()
+        fujicoin_merkle_root(hashes).into()
     }
 
     /// Get the size of the block
@@ -365,7 +365,7 @@ mod tests {
         assert_eq!(real_decode.header.nonce, 2067413810);
         assert_eq!(real_decode.header.work(), work);
         assert_eq!(real_decode.header.validate_pow(&real_decode.header.target()).unwrap(), ());
-        assert_eq!(real_decode.header.difficulty(Network::Bitcoin), 1);
+        assert_eq!(real_decode.header.difficulty(Network::Fujicoin), 1);
         // [test] TODO: check the transaction data
 
         assert_eq!(real_decode.get_size(), some_block.len());

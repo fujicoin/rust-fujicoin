@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -14,11 +14,11 @@
 
 //! Script
 //!
-//! Scripts define Bitcoin's digital signature scheme: a signature is formed
+//! Scripts define Fujicoin's digital signature scheme: a signature is formed
 //! from a script (the second half of which is defined by a coin to be spent,
 //! and the first half provided by the spending transaction), and is valid
 //! iff the script leaves `TRUE` on the stack after being evaluated.
-//! Bitcoin's script is a stack-based assembly language similar in spirit to
+//! Fujicoin's script is a stack-based assembly language similar in spirit to
 //! Forth.
 //!
 //! This module provides the structures and functions needed to support scripts.
@@ -33,14 +33,14 @@ use hash_types::{PubkeyHash, WPubkeyHash, ScriptHash, WScriptHash};
 use blockdata::opcodes;
 use consensus::{encode, Decodable, Encodable};
 use hashes::{Hash, hex};
-#[cfg(feature="bitcoinconsensus")] use bitcoinconsensus;
-#[cfg(feature="bitcoinconsensus")] use std::convert;
-#[cfg(feature="bitcoinconsensus")] use OutPoint;
+#[cfg(feature="fujicoinconsensus")] use fujicoinconsensus;
+#[cfg(feature="fujicoinconsensus")] use std::convert;
+#[cfg(feature="fujicoinconsensus")] use OutPoint;
 
 use util::key::PublicKey;
 
 #[derive(Clone, Default, PartialOrd, Ord, PartialEq, Eq, Hash)]
-/// A Bitcoin script
+/// A Fujicoin script
 pub struct Script(Box<[u8]>);
 
 impl fmt::Debug for Script {
@@ -102,19 +102,19 @@ display_from_debug!(Builder);
 #[derive(PartialEq, Eq, Debug, Clone)]
 pub enum Error {
     /// Something did a non-minimal push; for more information see
-    /// `https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki#Push_operators`
+    /// `https://github.com/fujicoin/bips/blob/master/bip-0062.mediawiki#Push_operators`
     NonMinimalPush,
     /// Some opcode expected a parameter, but it was missing or truncated
     EarlyEndOfScript,
     /// Tried to read an array off the stack as a number when it was more than 4 bytes
     NumericOverflow,
-    #[cfg(feature="bitcoinconsensus")]
-    /// Error validating the script with bitcoinconsensus library
-    BitcoinConsensus(bitcoinconsensus::Error),
-    #[cfg(feature="bitcoinconsensus")]
+    #[cfg(feature="fujicoinconsensus")]
+    /// Error validating the script with fujicoinconsensus library
+    FujicoinConsensus(fujicoinconsensus::Error),
+    #[cfg(feature="fujicoinconsensus")]
     /// Can not find the spent output
     UnknownSpentOutput(OutPoint),
-    #[cfg(feature="bitcoinconsensus")]
+    #[cfg(feature="fujicoinconsensus")]
     /// Can not serialize the spending transaction
     SerializationError
 }
@@ -125,11 +125,11 @@ impl fmt::Display for Error {
             Error::NonMinimalPush => "non-minimal datapush",
             Error::EarlyEndOfScript => "unexpected end of script",
             Error::NumericOverflow => "numeric overflow (number on stack larger than 4 bytes)",
-            #[cfg(feature="bitcoinconsensus")]
-            Error::BitcoinConsensus(ref _n) => "bitcoinconsensus verification failed",
-            #[cfg(feature="bitcoinconsensus")]
+            #[cfg(feature="fujicoinconsensus")]
+            Error::FujicoinConsensus(ref _n) => "fujicoinconsensus verification failed",
+            #[cfg(feature="fujicoinconsensus")]
             Error::UnknownSpentOutput(ref _point) => "unknown spent output Transaction::verify()",
-            #[cfg(feature="bitcoinconsensus")]
+            #[cfg(feature="fujicoinconsensus")]
             Error::SerializationError => "can not serialize the spending transaction in Transaction::verify()",
         };
         f.write_str(str)
@@ -138,12 +138,12 @@ impl fmt::Display for Error {
 
 impl error::Error for Error {}
 
-#[cfg(feature="bitcoinconsensus")]
+#[cfg(feature="fujicoinconsensus")]
 #[doc(hidden)]
-impl convert::From<bitcoinconsensus::Error> for Error {
-    fn from(err: bitcoinconsensus::Error) -> Error {
+impl convert::From<fujicoinconsensus::Error> for Error {
+    fn from(err: fujicoinconsensus::Error) -> Error {
         match err {
-            _ => Error::BitcoinConsensus(err)
+            _ => Error::FujicoinConsensus(err)
         }
     }
 }
@@ -175,7 +175,7 @@ fn build_scriptint(n: i64) -> Vec<u8> {
 
 /// Helper to decode an integer in script format
 /// Notice that this fails on overflow: the result is the same as in
-/// bitcoind, that only 4-byte signed-magnitude values may be read as
+/// fujicoind, that only 4-byte signed-magnitude values may be read as
 /// numbers. They can be added or subtracted (and a long time ago,
 /// multiplied and divided), and this may result in numbers which
 /// can't be written out in 4 bytes or less. This is ok! The number
@@ -422,14 +422,14 @@ impl Script {
         }
     }
 
-    #[cfg(feature="bitcoinconsensus")]
+    #[cfg(feature="fujicoinconsensus")]
     /// verify spend of an input script
     /// # Parameters
     ///  * index - the input index in spending which is spending this transaction
     ///  * amount - the amount this script guards
     ///  * spending - the transaction that attempts to spend the output holding this script
     pub fn verify (&self, index: usize, amount: u64, spending: &[u8]) -> Result<(), Error> {
-        Ok(bitcoinconsensus::verify (&self.0[..], amount, spending, index)?)
+        Ok(fujicoinconsensus::verify (&self.0[..], amount, spending, index)?)
     }
 
     /// Write the assembly decoding of the script to the formatter.
@@ -1202,8 +1202,8 @@ mod test {
     }
 
 	#[test]
-	#[cfg(feature="bitcoinconsensus")]
-	fn test_bitcoinconsensus () {
+	#[cfg(feature="fujicoinconsensus")]
+	fn test_fujicoinconsensus () {
 		// a random segwit transaction from the blockchain using native segwit
 		let spent = Builder::from(Vec::from_hex("0020701a8d401c84fb13e6baf169d59684e17abd9fa216c8cc5b9fc63d622ff8c58d").unwrap()).into_script();
 		let spending = Vec::from_hex("010000000001011f97548fbbe7a0db7588a66e18d803d0089315aa7d4cc28360b6ec50ef36718a0100000000ffffffff02df1776000000000017a9146c002a686959067f4866b8fb493ad7970290ab728757d29f0000000000220020701a8d401c84fb13e6baf169d59684e17abd9fa216c8cc5b9fc63d622ff8c58d04004730440220565d170eed95ff95027a69b313758450ba84a01224e1f7f130dda46e94d13f8602207bdd20e307f062594022f12ed5017bbf4a055a06aea91c10110a0e3bb23117fc014730440220647d2dc5b15f60bc37dc42618a370b2a1490293f9e5c8464f53ec4fe1dfe067302203598773895b4b16d37485cbe21b337f4e4b650739880098c592553add7dd4355016952210375e00eb72e29da82b89367947f29ef34afb75e8654f6ea368e0acdfd92976b7c2103a1b26313f430c4b15bb1fdce663207659d8cac749a0e53d70eff01874496feff2103c96d495bfdd5ba4145e3e046fee45e84a8a48ad05bd8dbb395c011a32cf9f88053ae00000000").unwrap();

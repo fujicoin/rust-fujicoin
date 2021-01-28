@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -15,7 +15,7 @@
 //! Network message
 //!
 //! This module defines the `Message` traits which are used
-//! for (de)serializing Bitcoin objects for transmission on the network. It
+//! for (de)serializing Fujicoin objects for transmission on the network. It
 //! also defines (de)serialization routines for many primitives.
 //!
 
@@ -110,7 +110,7 @@ pub struct RawNetworkMessage {
 }
 
 /// A Network message payload. Proper documentation is available on at
-/// [Bitcoin Wiki: Protocol Specification](https://en.bitcoin.it/wiki/Protocol_specification)
+/// [Fujicoin Wiki: Protocol Specification](https://en.fujicoin.it/wiki/Protocol_specification)
 #[derive(Clone, PartialEq, Eq, Debug)]
 pub enum NetworkMessage {
     /// `version`

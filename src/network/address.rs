@@ -1,4 +1,4 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written in 2014 by
 //     Andrew Poelstra <apoelstra@wpsoftware.net>
 //
@@ -12,10 +12,10 @@
 // If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 //
 
-//! Bitcoin network addresses
+//! Fujicoin network addresses
 //!
 //! This module defines the structures and functions needed to encode
-//! network addresses in Bitcoin messages.
+//! network addresses in Fujicoin messages.
 //!
 
 use std::{fmt, io, iter};
@@ -24,7 +24,7 @@ use std::net::{SocketAddr, Ipv6Addr, SocketAddrV4, SocketAddrV6, Ipv4Addr, ToSoc
 use network::constants::ServiceFlags;
 use consensus::encode::{self, Decodable, Encodable, VarInt, ReadExt, WriteExt};
 
-/// A message which can be sent on the Bitcoin network
+/// A message which can be sent on the Fujicoin network
 #[derive(Clone, PartialEq, Eq, Hash)]
 pub struct Address {
     /// Services provided by the peer whose address this is
@@ -375,7 +375,7 @@ mod test {
 
     #[test]
     fn serialize_addrv2_test() {
-        // Taken from https://github.com/bitcoin/bitcoin/blob/12a1c3ad1a43634d2a98717e49e3f02c4acea2fe/src/test/net_tests.cpp#L348
+        // Taken from https://github.com/fujicoin/fujicoin/blob/12a1c3ad1a43634d2a98717e49e3f02c4acea2fe/src/test/net_tests.cpp#L348
 
         let ip = AddrV2::Ipv4(Ipv4Addr::new(1, 2, 3, 4));
         assert_eq!(serialize(&ip), Vec::from_hex("010401020304").unwrap());
@@ -401,7 +401,7 @@ mod test {
 
     #[test]
     fn deserialize_addrv2_test() {
-        // Taken from https://github.com/bitcoin/bitcoin/blob/12a1c3ad1a43634d2a98717e49e3f02c4acea2fe/src/test/net_tests.cpp#L386
+        // Taken from https://github.com/fujicoin/fujicoin/blob/12a1c3ad1a43634d2a98717e49e3f02c4acea2fe/src/test/net_tests.cpp#L386
 
         // Valid IPv4.
         let ip: AddrV2 = deserialize(&Vec::from_hex("010401020304").unwrap()).unwrap();

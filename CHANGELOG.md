@@ -1,24 +1,24 @@
 
 # 0.26.0 - 2020-12-21
 
-- Add [signet support](https://github.com/rust-bitcoin/rust-bitcoin/pull/291)
-- Add [wtxidrelay message and `WTx` inv type](https://github.com/rust-bitcoin/rust-bitcoin/pull/446) for BIP 339
-- Add [addrv2 support](https://github.com/rust-bitcoin/rust-bitcoin/pull/449)
-- Distinguish [`FilterHeader` and `FilterHash`](https://github.com/rust-bitcoin/rust-bitcoin/pull/454)
-- Add [hash preimage fields](https://github.com/rust-bitcoin/rust-bitcoin/pull/478) to PSBT
-- Detect [write errors for `PublicKey::write_into`](https://github.com/rust-bitcoin/rust-bitcoin/pull/507)
-- impl `Ord` and `PartialOrd` [for `Inventory`](https://github.com/rust-bitcoin/rust-bitcoin/pull/517)
-- Add [binary encoding for BIP32 xkeys](https://github.com/rust-bitcoin/rust-bitcoin/pull/470)
-- Add [Taproot Tagged Hashes](https://github.com/rust-bitcoin/rust-bitcoin/pull/259)
-- Add [`message::MAX_INV_SIZE` constant](https://github.com/rust-bitcoin/rust-bitcoin/pull/516)
-- impl [`ToSocketAddrs` for network addresses](https://github.com/rust-bitcoin/rust-bitcoin/pull/514)
-- Add [new global fields to PSBT](https://github.com/rust-bitcoin/rust-bitcoin/pull/499)
-- [Serde serialization of PSBT data](https://github.com/rust-bitcoin/rust-bitcoin/pull/497)
-- [Make `Inventory` and `NetworkMessage` enums exhaustive](https://github.com/rust-bitcoin/rust-bitcoin/pull/496)
-- [Add PSBT proprietary keys](https://github.com/rust-bitcoin/rust-bitcoin/pull/471)
-- [Add `PublicKey::read_from` method symmetric with `write_to`](https://github.com/rust-bitcoin/rust-bitcoin/pull/542)
-- [Bump rust-secp to 0.20, turn off `recovery` feature by default](https://github.com/rust-bitcoin/rust-bitcoin/pull/545)
-- [Change return value of `consensus_encode` to `io::Error`](https://github.com/rust-bitcoin/rust-bitcoin/pull/494)
+- Add [signet support](https://github.com/rust-fujicoin/rust-fujicoin/pull/291)
+- Add [wtxidrelay message and `WTx` inv type](https://github.com/rust-fujicoin/rust-fujicoin/pull/446) for BIP 339
+- Add [addrv2 support](https://github.com/rust-fujicoin/rust-fujicoin/pull/449)
+- Distinguish [`FilterHeader` and `FilterHash`](https://github.com/rust-fujicoin/rust-fujicoin/pull/454)
+- Add [hash preimage fields](https://github.com/rust-fujicoin/rust-fujicoin/pull/478) to PSBT
+- Detect [write errors for `PublicKey::write_into`](https://github.com/rust-fujicoin/rust-fujicoin/pull/507)
+- impl `Ord` and `PartialOrd` [for `Inventory`](https://github.com/rust-fujicoin/rust-fujicoin/pull/517)
+- Add [binary encoding for BIP32 xkeys](https://github.com/rust-fujicoin/rust-fujicoin/pull/470)
+- Add [Taproot Tagged Hashes](https://github.com/rust-fujicoin/rust-fujicoin/pull/259)
+- Add [`message::MAX_INV_SIZE` constant](https://github.com/rust-fujicoin/rust-fujicoin/pull/516)
+- impl [`ToSocketAddrs` for network addresses](https://github.com/rust-fujicoin/rust-fujicoin/pull/514)
+- Add [new global fields to PSBT](https://github.com/rust-fujicoin/rust-fujicoin/pull/499)
+- [Serde serialization of PSBT data](https://github.com/rust-fujicoin/rust-fujicoin/pull/497)
+- [Make `Inventory` and `NetworkMessage` enums exhaustive](https://github.com/rust-fujicoin/rust-fujicoin/pull/496)
+- [Add PSBT proprietary keys](https://github.com/rust-fujicoin/rust-fujicoin/pull/471)
+- [Add `PublicKey::read_from` method symmetric with `write_to`](https://github.com/rust-fujicoin/rust-fujicoin/pull/542)
+- [Bump rust-secp to 0.20, turn off `recovery` feature by default](https://github.com/rust-fujicoin/rust-fujicoin/pull/545)
+- [Change return value of `consensus_encode` to `io::Error`](https://github.com/rust-fujicoin/rust-fujicoin/pull/494)
 
 # 0.25.1 - 2020-10-26
 
@@ -27,16 +27,16 @@
 
 # 0.25.1 - 2020-10-07
 
-- [Expose methods on `Script`](https://github.com/rust-bitcoin/rust-bitcoin/pull/387) to generate various scriptpubkeys
-- [Expose all cargo features of secp256k1](https://github.com/rust-bitcoin/rust-bitcoin/pull/486)
-- Allow directly creating [various hash newtypes](https://github.com/rust-bitcoin/rust-bitcoin/pull/388)
-- Add methods to `Block` [to get the coinbase tx and BIP34 height commitment](https://github.com/rust-bitcoin/rust-bitcoin/pull/444)
-- [Add `extend` method](https://github.com/rust-bitcoin/rust-bitcoin/pull/459) to bip32::DerivationPath
-- [Alias `(Fingerprint, DerivationPath)` as `KeySource`](https://github.com/rust-bitcoin/rust-bitcoin/pull/480)
-- [Add serde implementation for PSBT data structs](https://github.com/rust-bitcoin/rust-bitcoin/pull/497)
-- [Add FromStr/Display implementation for SigHashType](https://github.com/rust-bitcoin/rust-bitcoin/pull/497/commits/a4a7035a947998c8d0d69dab206e97253fd8e048)
-- Expose [the raw sighash message](https://github.com/rust-bitcoin/rust-bitcoin/pull/485) from sighash computations
-- Add [support for signmessage/verifymessage style message signatures](https://github.com/rust-bitcoin/rust-bitcoin/pull/413)
+- [Expose methods on `Script`](https://github.com/rust-fujicoin/rust-fujicoin/pull/387) to generate various scriptpubkeys
+- [Expose all cargo features of secp256k1](https://github.com/rust-fujicoin/rust-fujicoin/pull/486)
+- Allow directly creating [various hash newtypes](https://github.com/rust-fujicoin/rust-fujicoin/pull/388)
+- Add methods to `Block` [to get the coinbase tx and BIP34 height commitment](https://github.com/rust-fujicoin/rust-fujicoin/pull/444)
+- [Add `extend` method](https://github.com/rust-fujicoin/rust-fujicoin/pull/459) to bip32::DerivationPath
+- [Alias `(Fingerprint, DerivationPath)` as `KeySource`](https://github.com/rust-fujicoin/rust-fujicoin/pull/480)
+- [Add serde implementation for PSBT data structs](https://github.com/rust-fujicoin/rust-fujicoin/pull/497)
+- [Add FromStr/Display implementation for SigHashType](https://github.com/rust-fujicoin/rust-fujicoin/pull/497/commits/a4a7035a947998c8d0d69dab206e97253fd8e048)
+- Expose [the raw sighash message](https://github.com/rust-fujicoin/rust-fujicoin/pull/485) from sighash computations
+- Add [support for signmessage/verifymessage style message signatures](https://github.com/rust-fujicoin/rust-fujicoin/pull/413)
 
 # 0.25.0 - 2020-09-10
 
@@ -44,24 +44,24 @@
 
 # 0.24.0 - 2020-09-10
 
-- [Remove](https://github.com/rust-bitcoin/rust-bitcoin/pull/385) the `BitcoinHash` trait
-- [Introduce `SigHashCache` structure](https://github.com/rust-bitcoin/rust-bitcoin/pull/390) to replace `SighashComponents` and support all sighash modes
-- [Add](https://github.com/rust-bitcoin/rust-bitcoin/pull/416) `Transaction::get_size` method
-- [Export](https://github.com/rust-bitcoin/rust-bitcoin/pull/412) `util::amount::Denomination`
-- [Add](https://github.com/rust-bitcoin/rust-bitcoin/pull/417) `Block::get_size` and `Block::get_weight` methods
-- [Add](https://github.com/rust-bitcoin/rust-bitcoin/pull/415) `MerkleBlock::from_header_txids`
-- [Add](https://github.com/rust-bitcoin/rust-bitcoin/pull/429) `BlockHeader::u256_from_compact_target`
-- [Add](https://github.com/rust-bitcoin/rust-bitcoin/pull/448) `feefilter` network message
-- [Cleanup/replace](https://github.com/rust-bitcoin/rust-bitcoin/pull/397) `Script::Instructions` iterator API
-- [Disallow uncompressed pubkeys in witness address generation](https://github.com/rust-bitcoin/rust-bitcoin/pull/428)
-- [Deprecate](https://github.com/rust-bitcoin/rust-bitcoin/pull/451) `util::contracthash` module
-- [Add](https://github.com/rust-bitcoin/rust-bitcoin/pull/435) modulo division operation for `Uint128` and `Uint256`
-- [Add](https://github.com/rust-bitcoin/rust-bitcoin/pull/436) `slice_to_u64_be` endian conversion method
+- [Remove](https://github.com/rust-fujicoin/rust-fujicoin/pull/385) the `FujicoinHash` trait
+- [Introduce `SigHashCache` structure](https://github.com/rust-fujicoin/rust-fujicoin/pull/390) to replace `SighashComponents` and support all sighash modes
+- [Add](https://github.com/rust-fujicoin/rust-fujicoin/pull/416) `Transaction::get_size` method
+- [Export](https://github.com/rust-fujicoin/rust-fujicoin/pull/412) `util::amount::Denomination`
+- [Add](https://github.com/rust-fujicoin/rust-fujicoin/pull/417) `Block::get_size` and `Block::get_weight` methods
+- [Add](https://github.com/rust-fujicoin/rust-fujicoin/pull/415) `MerkleBlock::from_header_txids`
+- [Add](https://github.com/rust-fujicoin/rust-fujicoin/pull/429) `BlockHeader::u256_from_compact_target`
+- [Add](https://github.com/rust-fujicoin/rust-fujicoin/pull/448) `feefilter` network message
+- [Cleanup/replace](https://github.com/rust-fujicoin/rust-fujicoin/pull/397) `Script::Instructions` iterator API
+- [Disallow uncompressed pubkeys in witness address generation](https://github.com/rust-fujicoin/rust-fujicoin/pull/428)
+- [Deprecate](https://github.com/rust-fujicoin/rust-fujicoin/pull/451) `util::contracthash` module
+- [Add](https://github.com/rust-fujicoin/rust-fujicoin/pull/435) modulo division operation for `Uint128` and `Uint256`
+- [Add](https://github.com/rust-fujicoin/rust-fujicoin/pull/436) `slice_to_u64_be` endian conversion method
 
 # 0.23.0 - 2020-01-07
 
 - Update `secp256k1` dependency to `0.17.1`.
-- Update `bitcoinconsensus` dependency to `0.19.0-1`.
+- Update `fujicoinconsensus` dependency to `0.19.0-1`.
 - Update `bech32` dependency to `0.7.2`.
 
 # 0.22.0 - 2020-01-07
@@ -96,13 +96,13 @@
 
 # 0.21.0 - 2019-10-02
 
-* Add [serde to `BlockHeader` and `Block`](https://github.com/rust-bitcoin/rust-bitcoin/pull/321)
-* [Clean up `StreamReader` API](https://github.com/rust-bitcoin/rust-bitcoin/pull/318) (breaking change)
-* Add [reject message](https://github.com/rust-bitcoin/rust-bitcoin/pull/323) to p2p messages
+* Add [serde to `BlockHeader` and `Block`](https://github.com/rust-fujicoin/rust-fujicoin/pull/321)
+* [Clean up `StreamReader` API](https://github.com/rust-fujicoin/rust-fujicoin/pull/318) (breaking change)
+* Add [reject message](https://github.com/rust-fujicoin/rust-fujicoin/pull/323) to p2p messages
 
 # 0.20.0 - 2019-08-23
 
-* Update `secp256k1` 0.15 and `bitcoinconsensus` 0.17
+* Update `secp256k1` 0.15 and `fujicoinconsensus` 0.17
 
 # 0.19.0 - 2019-08-16
 
@@ -123,7 +123,7 @@
     * Add `Address::from_script` constructor.
     * Add `Address::address_type` inspector.
     * Parsing now returns an `address::Error` instead of `encode::Error`.
-    * Removed `bitcoin_bech32` dependency for bech32 payloads.
+    * Removed `fujicoin_bech32` dependency for bech32 payloads.
 * bip143: Rename `witness_script` to `script_code`
 * Rename `BlockHeader::spv_validate` to `validate_pow`
 * Rename `OP_NOP2` and `OP_NOP3` to `OP_CLTV` and `OP_CSV`
@@ -131,14 +131,14 @@
 * Drop `Decimal` type.
 * Drop `LoneHeaders` type.
 * Replace `strason` dependency with (optional) `serde_json`.
-* Export the `bitcoin_hashes` and `secp256k1` dependent crates.
-* Updated `bitcoin_hashes` dependency to v0.7.
+* Export the `fujicoin_hashes` and `secp256k1` dependent crates.
+* Updated `fujicoin_hashes` dependency to v0.7.
 * Removed `rand` and `serde_test` dependencies.
 * Internal improvements to consensus encoding logic.
 
 # 0.18.0 - 2019-03-21
 
-* Update `bitcoin-bech32` version to 0.9
+* Update `fujicoin-bech32` version to 0.9
 * add `to_bytes` method for `util::key` types
 * add serde impls for `util::key` types
 * contracthash: minor cleanups, use `util::key` types instead of `secp256k1` types
@@ -150,15 +150,15 @@
 # 0.17.0 - 2019-02-28 - ``The PSBT Release''
 
 * **Update minimum rustc version to 1.22**.
-* [Replace `rust-crypto` with `bitcoin_hashes`; refactor hash types](https://github.com/rust-bitcoin/rust-bitcoin/pull/215)
-* [Remove `Address::p2pk`](https://github.com/rust-bitcoin/rust-bitcoin/pull/222/)
-* Remove misleading blanket `MerkleRoot` implementation; [it is now only defined for `Block`](https://github.com/rust-bitcoin/rust-bitcoin/pull/218)
-* [Add BIP157](https://github.com/rust-bitcoin/rust-bitcoin/pull/215) (client-side block filtering messages)
-* Allow network messages [to be deserialized even across multiple packets](https://github.com/rust-bitcoin/rust-bitcoin/pull/231)
-* [Replace all key types](https://github.com/rust-bitcoin/rust-bitcoin/pull/183) to better match abstractions needed for PSBT
-* [Clean up BIP32](https://github.com/rust-bitcoin/rust-bitcoin/pull/233) in preparation for PSBT; [use new native key types rather than `secp256k1` ones](https://github.com/rust-bitcoin/rust-bitcoin/pull/238/)
-* Remove [apparently-used `Option` serialization](https://github.com/rust-bitcoin/rust-bitcoin/pull/236#event-2158116421) code
-* Finally merge [PSBT](https://github.com/rust-bitcoin/rust-bitcoin/pull/103) after nearly nine months
+* [Replace `rust-crypto` with `fujicoin_hashes`; refactor hash types](https://github.com/rust-fujicoin/rust-fujicoin/pull/215)
+* [Remove `Address::p2pk`](https://github.com/rust-fujicoin/rust-fujicoin/pull/222/)
+* Remove misleading blanket `MerkleRoot` implementation; [it is now only defined for `Block`](https://github.com/rust-fujicoin/rust-fujicoin/pull/218)
+* [Add BIP157](https://github.com/rust-fujicoin/rust-fujicoin/pull/215) (client-side block filtering messages)
+* Allow network messages [to be deserialized even across multiple packets](https://github.com/rust-fujicoin/rust-fujicoin/pull/231)
+* [Replace all key types](https://github.com/rust-fujicoin/rust-fujicoin/pull/183) to better match abstractions needed for PSBT
+* [Clean up BIP32](https://github.com/rust-fujicoin/rust-fujicoin/pull/233) in preparation for PSBT; [use new native key types rather than `secp256k1` ones](https://github.com/rust-fujicoin/rust-fujicoin/pull/238/)
+* Remove [apparently-used `Option` serialization](https://github.com/rust-fujicoin/rust-fujicoin/pull/236#event-2158116421) code
+* Finally merge [PSBT](https://github.com/rust-fujicoin/rust-fujicoin/pull/103) after nearly nine months
 
 # 0.16.0 - 2019-01-15
 
@@ -170,20 +170,20 @@
 
 # 0.15.1 - 2018-11-08
 
-* [Detect p2pk addresses with compressed keys](https://github.com/rust-bitcoin/rust-bitcoin/pull/189)
+* [Detect p2pk addresses with compressed keys](https://github.com/rust-fujicoin/rust-fujicoin/pull/189)
 
 # 0.15.0 - 2018-11-03
 
-* [Significant API overhaul](https://github.com/rust-bitcoin/rust-bitcoin/pull/156):
+* [Significant API overhaul](https://github.com/rust-fujicoin/rust-fujicoin/pull/156):
     * Remove `nu_select` macro and low-level networking support
     * Move `network::consensus_params` to `consensus::params`
     * Move many other things into `consensus::params`
-    * Move `BitcoinHash` from `network::serialize` to `util::hash`; remove impl for `Vec<u8>`
+    * Move `FujicoinHash` from `network::serialize` to `util::hash`; remove impl for `Vec<u8>`
     * Rename/restructure error types
     * Rename `Consensus{De,En}coder` to `consensus::{De,En}coder`
     * Replace `Raw{De,En}coder` with blanket impls of `consensus::{De,En}coder` on `io::Read` and `io::Write`
     * make `serialize` and `serialize_hex` infallible
-* Make 0-input transaction de/serialization [always use segwit](https://github.com/rust-bitcoin/rust-bitcoin/pull/153)
+* Make 0-input transaction de/serialization [always use segwit](https://github.com/rust-fujicoin/rust-fujicoin/pull/153)
 * Implement `FromStr` and `Display` for many more types
 
 # 0.14.2 - 2018-09-11
@@ -198,32 +198,32 @@
 
 # 0.14.0 - 2018-08-22
 
-* Add [regtest network](https://github.com/rust-bitcoin/rust-bitcoin/pull/84) to `Network` enum
-* Add [`Script::is_op_return()`](https://github.com/rust-bitcoin/rust-bitcoin/pull/101/) which is more specific than
+* Add [regtest network](https://github.com/rust-fujicoin/rust-fujicoin/pull/84) to `Network` enum
+* Add [`Script::is_op_return()`](https://github.com/rust-fujicoin/rust-fujicoin/pull/101/) which is more specific than
   `Script::is_provably_unspendable()`
-* Update to bech32 0.8.0; [add Regtest bech32 address support](https://github.com/rust-bitcoin/rust-bitcoin/pull/110)
-* [Replace rustc-serialize dependency with hex](https://github.com/rust-bitcoin/rust-bitcoin/pull/107) as a stopgap
+* Update to bech32 0.8.0; [add Regtest bech32 address support](https://github.com/rust-fujicoin/rust-fujicoin/pull/110)
+* [Replace rustc-serialize dependency with hex](https://github.com/rust-fujicoin/rust-fujicoin/pull/107) as a stopgap
   toward eliminating any extra dependencies for this; clean up the many independent hex encoders and decoders
   throughout the codebase.
-* [Add conversions between `ChildNumber` and `u32`](https://github.com/rust-bitcoin/rust-bitcoin/pull/126); make
+* [Add conversions between `ChildNumber` and `u32`](https://github.com/rust-fujicoin/rust-fujicoin/pull/126); make
   representation non-public; fix documentation
-* [Add several derivation convenience](https://github.com/rust-bitcoin/rust-bitcoin/pull/129) to `bip32` extended keys
-* Make `deserialize::deserialize()` [enforce no trailing bytes](https://github.com/rust-bitcoin/rust-bitcoin/pull/129)
+* [Add several derivation convenience](https://github.com/rust-fujicoin/rust-fujicoin/pull/129) to `bip32` extended keys
+* Make `deserialize::deserialize()` [enforce no trailing bytes](https://github.com/rust-fujicoin/rust-fujicoin/pull/129)
 * Replace `TxOutRef` with `OutPoint`; use it in `TxIn` struct.
 * Use modern `as_` `to_` `into_` conventions for array-wrapping types; impl `Display` rather than `ToString` for most types
-* Change `script::Instructions` iterator [to allow rejecting non-minimal pushes](https://github.com/rust-bitcoin/rust-bitcoin/pull/136);
+* Change `script::Instructions` iterator [to allow rejecting non-minimal pushes](https://github.com/rust-fujicoin/rust-fujicoin/pull/136);
   fix bug where errors would iterate forever.
 * Overhaul `util::Error`; introduce `serialize::Error` [and use it for `SimpleDecoder` and `SimpleDecoder` rather
-  than parameterizing these over their error type](https://github.com/rust-bitcoin/rust-bitcoin/pull/137).
-* Overhaul `UDecimal` and `Decimal` serialization and parsing [and fix many lingering parsing bugs](https://github.com/rust-bitcoin/rust-bitcoin/pull/142)
-* [Update to serde 1.0 and strason 0.4](https://github.com/rust-bitcoin/rust-bitcoin/pull/125)
+  than parameterizing these over their error type](https://github.com/rust-fujicoin/rust-fujicoin/pull/137).
+* Overhaul `UDecimal` and `Decimal` serialization and parsing [and fix many lingering parsing bugs](https://github.com/rust-fujicoin/rust-fujicoin/pull/142)
+* [Update to serde 1.0 and strason 0.4](https://github.com/rust-fujicoin/rust-fujicoin/pull/125)
 * Update to secp256k1 0.11.0
 * Many, many documentation and test improvements.
 
 # 0.13.1
 
 * Add `Display` trait to uints, `FromStr` trait to `Network` enum
-* Add witness inv types to inv enum, constants for Bitcoin regtest network, `is_coin_base` accessor for tx inputs
+* Add witness inv types to inv enum, constants for Fujicoin regtest network, `is_coin_base` accessor for tx inputs
 * Expose `merkleroot(Vec<Sha256dHash>)`
 
 # 0.13
@@ -234,10 +234,10 @@
 
 # 0.12
 
-* The in-memory blockchain was moved into a dedicated project rust-bitcoin-chain.
+* The in-memory blockchain was moved into a dedicated project rust-fujicoin-chain.
 * Removed old script interpreter
-* A new optional feature "bitcoinconsensus" lets this library use Bitcoin Core's native
-script verifier, wrappend into Rust by the rust-bitcoinconsenus project.
+* A new optional feature "fujicoinconsensus" lets this library use Fujicoin Core's native
+script verifier, wrappend into Rust by the rust-fujicoinconsenus project.
 See `Transaction::verify` and `Script::verify` methods.
 * Replaced Base58 traits with `encode_slice`, `check_encode_slice`, from and `from_check` functions in the base58 module.
 * Un-reversed the Debug output for Sha256dHash

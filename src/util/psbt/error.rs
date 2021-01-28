@@ -1,6 +1,6 @@
-// Rust Bitcoin Library
+// Rust Fujicoin Library
 // Written by
-//   The Rust Bitcoin developers
+//   The Rust Fujicoin developers
 //
 // To the extent possible under law, the author(s) have dedicated all
 // copyright and related and neighboring rights to this software to
@@ -61,7 +61,7 @@ pub enum Error {
     },
     /// Unable to parse as a standard SigHash type.
     NonStandardSigHashType(u32),
-    /// Parsing errors from bitcoin_hashes
+    /// Parsing errors from fujicoin_hashes
     HashParseError(hashes::Error),
     /// The pre-image must hash to the correponding psbt hash
     InvalidPreimageHashPair {
@@ -74,7 +74,7 @@ pub enum Error {
     },
     /// Data inconsistency/conflicting data during merge procedure
     MergeConflict(String),
-    /// Serialization error in bitcoin consensus-encoded structures
+    /// Serialization error in fujicoin consensus-encoded structures
     ConsensusEncoding,
 }
 
@@ -100,7 +100,7 @@ impl fmt::Display for Error {
                 write!(f, "Preimage {:?} does not match {:?} hash {:?}", preimage, hash_type, hash )
             }
             Error::MergeConflict(ref s) => { write!(f, "Merge conflict: {}", s) }
-            Error::ConsensusEncoding => f.write_str("bitcoin consensus encoding error"),
+            Error::ConsensusEncoding => f.write_str("fujicoin consensus encoding error"),
         }
     }
 }
